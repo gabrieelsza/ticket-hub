@@ -5,12 +5,12 @@ import { roleMiddleware } from "../middlewares/role.middleware.js";
 
 const sessionRouter = Router();
 
-// Públicas
+// CLIENTE
 sessionRouter.get("/evento/:eventId", sessionController.listarPorEvento);
 sessionRouter.get("/:id", sessionController.buscarPorId);
 sessionRouter.get("/:id/seatmap", sessionController.buscarSeatMap);
 
-// Organizador
+// ORGANIZADOR
 sessionRouter.post(
   "/evento/:eventId",
   authMiddleware,

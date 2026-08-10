@@ -4,6 +4,7 @@ import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
 import eventRouter from "./routes/event.routes.js";
 import sessionRouter from "./routes/session.routes.js";
+import ticketRouter from "./routes/ticket.routes.js";
 
 function createApp() {
     const app = express();
@@ -24,6 +25,8 @@ function createApp() {
     app.use("/api/events", eventRouter);
 
     app.use("/api/sessions", sessionRouter);
+
+    app.use("/api/tickets", ticketRouter);
 
     return app;
 }

@@ -5,10 +5,10 @@ import { roleMiddleware } from "../middlewares/role.middleware.js";
 
 const eventRouter = Router();
 
-// Pública
+// CLIENTE
 eventRouter.get("/", eventController.listarPublicados);
 
-// Organizador
+// ORGANIZADOR
 eventRouter.get("/search", authMiddleware, roleMiddleware("ORGANIZADOR"), eventController.buscarNaApiExterna);
 eventRouter.get("/meus", authMiddleware, roleMiddleware("ORGANIZADOR"), eventController.listarMeus);
 eventRouter.post("/", authMiddleware, roleMiddleware("ORGANIZADOR"), eventController.importar);

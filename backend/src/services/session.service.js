@@ -1,6 +1,6 @@
 import prisma from "../lib/prisma.js";
 
-// Gera um layout padrão de assentos: fileiras de A a E, 8 assentos cada
+// GERA lAYOUT: Fileiras de A a E, 8 assentos cada
 function gerarLayoutPadrao() {
   const fileiras = ["A", "B", "C", "D", "E"];
   const assentosPorFileira = 8;
@@ -35,7 +35,7 @@ class SessionService {
       throw new Error("Você não tem permissão para criar sessões neste evento");
     }
 
-    // Junta data + hora num único DateTime
+    // JUNTA DATA + HORA
     const dataHora = new Date(`${data}T${hora}`);
 
     const session = await prisma.session.create({
