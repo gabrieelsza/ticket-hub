@@ -3,6 +3,8 @@ import authService from "../services/auth.service.js";
 class AuthController {
   async register(req, res) {
     try {
+      console.log("BODY REGISTER:", req.body);
+
       const { nome, email, senha, role } = req.body || {};
 
       const result = await authService.register({
@@ -22,7 +24,9 @@ class AuthController {
 
   async login(req, res) {
     try {
-      const { email, senha } = req.body;
+      console.log("BODY LOGIN:", req.body);
+
+      const { email, senha } = req.body || {};
 
       const result = await authService.login({
         email,

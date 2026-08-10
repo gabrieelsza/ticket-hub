@@ -3,7 +3,13 @@ import jwt from "jsonwebtoken";
 import prisma from "../lib/prisma.js";
 
 class AuthService {
-  async register({ nome, email, senha, role }) {
+  async register(data) {
+    const { nome, email, senha, role } = data || {};
+
+    if (!nome || !email || !senha) {
+      throw new Error("nome, email e senha são obrigatórios");
+    }
+
     const userExists = await prisma.user.findUnique({
       where: { email },
     });
@@ -30,6 +36,10 @@ class AuthService {
       },
     });
 
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET não configurado");
+    }
+
     const token = jwt.sign(
       {
         sub: user.id,
@@ -45,7 +55,13 @@ class AuthService {
     return { user, token };
   }
 
-  async login({ email, senha }) {
+  async login(data) {
+    const { email, senha } = data || {};
+
+    if (!email || !senha) {
+      throw new Error("email e senha são obrigatórios");
+    }
+
     const user = await prisma.user.findUnique({
       where: { email },
     });
@@ -58,6 +74,10 @@ class AuthService {
 
     if (!passwordMatches) {
       throw new Error("Credenciais inválidas");
+    }
+
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET não configurado");
     }
 
     const token = jwt.sign(
