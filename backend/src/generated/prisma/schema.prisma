@@ -1,0 +1,140 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ORGANIZADOR
+  CLIENTE
+  PORTARIA
+}
+
+enum EventType {
+  FILME
+  SHOW
+}
+
+enum SourceApi {
+  TMDB
+  TICKETMASTER
+}
+
+enum EventStatus {
+  RASCUNHO
+  PUBLICADO
+}
+
+enum TicketStatus {
+  RESERVADO
+  PAGO
+  VALIDADO
+}
+
+enum OrderStatus {
+  PENDENTE
+  PAGO
+  CANCELADO
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  senha     String
+  nome      String
+  role      Role
+
+  eventos  Event[]
+  orders   Order[]
+  tickets  Ticket[]
+  checkins CheckIn[]
+}
+
+model Event {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  titulo     String
+  descricao  String?
+  imagem     String?
+  tipo       EventType
+  sourceApi  SourceApi
+  externalId String
+  status     EventStatus @default(RASCUNHO)
+
+  organizadorId Int
+  organizador   User @relation(fields: [organizadorId], references: [id])
+
+  sessions Session[]
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  data      DateTime
+  local     String
+
+  eventId Int
+  event   Event @relation(fields: [eventId], references: [id])
+
+  seatMap SeatMap?
+  tickets Ticket[]
+}
+
+model SeatMap {
+  id     Int  @id @default(autoincrement())
+  layout Json // estrutura de fileiras/assentos e status
+
+  sessionId Int     @unique
+  session   Session @relation(fields: [sessionId], references: [id])
+}
+
+model Ticket {
+  id        Int          @id @default(autoincrement())
+  createdAt DateTime     @default(now())
+  assento   String
+  status    TicketStatus @default(RESERVADO)
+  qrCode    String       @unique
+
+  sessionId Int
+  session   Session @relation(fields: [sessionId], references: [id])
+
+  clienteId Int
+  cliente   User @relation(fields: [clienteId], references: [id])
+
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id])
+
+  checkin CheckIn?
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  valorTotal Float
+  status     OrderStatus @default(PENDENTE)
+
+  clienteId Int
+  cliente   User @relation(fields: [clienteId], references: [id])
+
+  tickets Ticket[]
+}
+
+model CheckIn {
+  id       Int      @id @default(autoincrement())
+  dataHora DateTime @default(now())
+
+  ticketId Int    @unique
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
+
+  portariaId Int
+  portaria   User @relation(fields: [portariaId], references: [id])
+}

@@ -9,4 +9,4 @@ const PORT = Number(process.env.PORT);
 app.listen(PORT, () => {
     console.log(`\n🍞 Servidor rodando em http://localhost:${PORT}`);
     console.log(`📚 Documentação: http://localhost:${PORT}`);
-});
+}); 
