@@ -5,6 +5,7 @@ import userRouter from "./routes/user.routes.js";
 import eventRouter from "./routes/event.routes.js";
 import sessionRouter from "./routes/session.routes.js";
 import ticketRouter from "./routes/ticket.routes.js";
+import checkinRouter from "./routes/checkin.routes.js";
 
 function createApp() {
     const app = express();
@@ -27,6 +28,8 @@ function createApp() {
     app.use("/api/sessions", sessionRouter);
 
     app.use("/api/tickets", ticketRouter);
+
+    app.use("/api/checkin", checkinRouter);
 
     return app;
 }
