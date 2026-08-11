@@ -10,6 +10,8 @@ import MeusEventos from "../pages/organizador/MeusEventos";
 import CriarSessao from "../pages/organizador/CriarSessao";
 import Layout from "../components/Layout";
 
+import ListaEventos from "../pages/cliente/ListaEventos";
+
 export default function AppRoutes() {
   return (
     <BrowserRouter>
@@ -17,7 +19,8 @@ export default function AppRoutes() {
         {}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
+        <Route path="/" element={<ListaEventos />} />
+        
         {}
         <Route element={<Layout />}></Route>
         <Route
