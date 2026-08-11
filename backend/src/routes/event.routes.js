@@ -13,5 +13,6 @@ eventRouter.get("/search", authMiddleware, roleMiddleware("ORGANIZADOR"), eventC
 eventRouter.get("/meus", authMiddleware, roleMiddleware("ORGANIZADOR"), eventController.listarMeus);
 eventRouter.post("/", authMiddleware, roleMiddleware("ORGANIZADOR"), eventController.importar);
 eventRouter.patch("/:id/publish", authMiddleware, roleMiddleware("ORGANIZADOR"), eventController.publicar);
+eventRouter.get("/:id", eventController.buscarPorId);
 
 export default eventRouter;

@@ -31,6 +31,16 @@ class EventController {
     }
   }
 
+  async buscarPorId(req, res) {
+    try {
+      const { id } = req.params;
+      const evento = await eventService.buscarPorId(id);
+      return res.status(200).json(evento);
+    } catch (error) {
+      return res.status(404).json({ message: error.message });
+    }
+  }
+
   async publicar(req, res) {
     try {
       const { id } = req.params;

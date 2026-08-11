@@ -65,6 +65,23 @@ class EventService {
     });
   }
 
+  async buscarPorId(id) {
+  const evento = await prisma.event.findUnique({
+    where: { id: Number(id) },
+    include: {
+      sessions: {
+        include: { seatMap: true },
+      },
+    },
+  });
+
+  if (!evento) {
+    throw new Error("Evento não encontrado");
+  }
+
+  return evento;
+}
+
   async listarPublicados() {
     return prisma.event.findMany({
       where: { status: "PUBLICADO" },
