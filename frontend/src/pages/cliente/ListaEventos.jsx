@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import api from "../../services/api";
-import EventCard from "../../components/EventCard";
 import { Link } from "react-router-dom";
+import api from "../../services/api";
+import Carousel from "../../components/Carousel";
 
 export default function ListaEventos() {
   const [eventos, setEventos] = useState([]);
@@ -23,9 +23,6 @@ export default function ListaEventos() {
     carregarEventos();
   }, []);
 
-  const destaque = eventos[0];
-  const restante = eventos.slice(1);
-
   if (carregando) {
     return <p className="p-10 text-center text-gray-500">Carregando eventos...</p>;
   }
@@ -42,44 +39,50 @@ export default function ListaEventos() {
     );
   }
 
+  const ordenados = [...eventos].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+
+  const destaque = ordenados[0];
+  const filmes = ordenados.filter((e) => e.tipo === "FILME");
+  const shows = ordenados.filter((e) => e.tipo === "SHOW");
+
   return (
     <div className="mx-auto max-w-6xl px-6 py-10">
-      {destaque && (
-        <div className="grid gap-8 md:grid-cols-2 md:items-center">
-          <div>
-            <h1 className="text-4xl font-black text-gray-900">{destaque.titulo}</h1>
-            <p className="mt-3 line-clamp-3 text-gray-600">{destaque.descricao}</p>
+      <div className="grid gap-8 md:grid-cols-2 md:items-center">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+            {destaque.tipo === "FILME" ? "Filme" : "Evento"} em destaque
+          </p>
+          <h1 className="mt-1 text-4xl font-black text-gray-900">{destaque.titulo}</h1>
+          <p className="mt-3 line-clamp-3 text-gray-600">{destaque.descricao}</p>
 
-            <div className="mt-6 flex gap-3">
-              <Link
-                to={`/eventos/${destaque.id}`}
-                className="rounded-full bg-green-900 px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
-              >
-                Ver detalhes
-              </Link>
-            </div>
-          </div>
-
-          <img
-            src={destaque.imagem}
-            alt={destaque.titulo}
-            className="aspect-video w-full rounded-3xl object-cover"
-          />
+          <Link
+            to={`/eventos/${destaque.id}`}
+            className="mt-6 inline-block rounded-full bg-green-900 px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
+          >
+            Ver detalhes
+          </Link>
         </div>
-      )}
 
-      {restante.length > 0 && (
-        <section className="mt-14">
-          <h2 className="text-2xl font-black text-gray-900">Em cartaz</h2>
-          <p className="text-sm text-gray-500">Eventos e filmes disponíveis agora</p>
+        <img
+          src={destaque.imagem}
+          alt={destaque.titulo}
+          className="aspect-video w-full rounded-3xl object-cover"
+        />
+      </div>
 
-          <div className="mt-5 grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4">
-            {restante.map((evento) => (
-              <EventCard key={evento.id} evento={evento} />
-            ))}
-          </div>
-        </section>
-      )}
+      <Carousel
+        titulo="Filmes em cartaz"
+        subtitulo="Filmes disponíveis para sessões"
+        eventos={filmes}
+      />
+
+      <Carousel
+        titulo="Shows e eventos"
+        subtitulo="Programação de shows e eventos ao vivo"
+        eventos={shows}
+      />
     </div>
   );
 }

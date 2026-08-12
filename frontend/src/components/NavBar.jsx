@@ -20,17 +20,17 @@ export default function Navbar() {
 
         <nav className="hidden items-center gap-6 text-sm font-medium text-gray-700 md:flex">
           <Link to="/" className="hover:text-green-900">Home</Link>
-          <Link to="/filmes" className="hover:text-green-900">Filmes</Link>
-          <Link to="/eventos" className="hover:text-green-900">Eventos</Link>
+          <Link to="/" className="hover:text-green-900">Filmes</Link>
+          <Link to="/" className="hover:text-green-900">Eventos</Link>
 
           {usuario?.role === "CLIENTE" && (
-            <Link to="/meus-ingressos" className="hover:text-green-900">Ingressos</Link>
+            <Link to="/" className="hover:text-green-900">Ingressos</Link>
           )}
           {usuario?.role === "ORGANIZADOR" && (
-            <Link to="/organizador" className="hover:text-green-900">Meus Eventos</Link>
+            <Link to="/" className="hover:text-green-900">Meus Eventos</Link>
           )}
           {usuario?.role === "PORTARIA" && (
-            <Link to="/portaria" className="hover:text-green-900">Validar Acesso</Link>
+            <Link to="/login" className="hover:text-green-900">Validar Acesso</Link>
           )}
         </nav>
       </div>
@@ -42,7 +42,7 @@ export default function Navbar() {
         </div>
 
         {usuario?.role === "CLIENTE" && (
-          <Link to="/favoritos" className="rounded-full p-2 hover:bg-white">
+          <Link to="/" className="rounded-full p-2 hover:bg-white">
             <Heart className="h-5 w-5 text-gray-600" />
           </Link>
         )}
@@ -62,7 +62,7 @@ export default function Navbar() {
           </div>
         ) : (
           <Link
-            to="/login"
+            to="/"
             className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
           >
             <User className="h-4 w-4" />
