@@ -19,20 +19,20 @@ export default function Carousel({ titulo, subtitulo, eventos }) {
     <section className="mt-12">
       <div className="flex items-end justify-between">
         <div>
-          <h2 className="text-2xl font-black text-gray-900">{titulo}</h2>
-          <p className="text-sm text-gray-500">{subtitulo}</p>
+          <h2 className="text-2xl font-bold sm:text-3xl">{titulo}</h2>
+          <p className="mt-1.5 text-sm text-muted-foreground">{subtitulo}</p>
         </div>
 
         <div className="hidden gap-2 sm:flex">
           <button
             onClick={() => scroll("esquerda")}
-            className="rounded-full border border-gray-300 p-2 hover:bg-white"
+            className="rounded-full border border-border p-2 hover:bg-primary-foreground"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
           <button
             onClick={() => scroll("direita")}
-            className="rounded-full border border-gray-300 p-2 hover:bg-white"
+            className="rounded-full border border-border p-2 hover:bg-primary-foreground"
           >
             <ChevronRight className="h-4 w-4" />
           </button>

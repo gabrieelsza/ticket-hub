@@ -37,6 +37,7 @@ enum TicketStatus {
   RESERVADO
   PAGO
   VALIDADO
+  CANCELADO
 }
 
 enum OrderStatus {
@@ -98,11 +99,12 @@ model SeatMap {
 }
 
 model Ticket {
-  id        Int          @id @default(autoincrement())
-  createdAt DateTime     @default(now())
-  assento   String
-  status    TicketStatus @default(RESERVADO)
-  qrCode    String       @unique
+  id         Int          @id @default(autoincrement())
+  createdAt  DateTime     @default(now())
+  assento    String
+  status     TicketStatus @default(RESERVADO)
+  qrCode     String       @unique
+  shareToken String?      @unique
 
   sessionId Int
   session   Session @relation(fields: [sessionId], references: [id])

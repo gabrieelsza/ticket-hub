@@ -20,7 +20,9 @@ export default function CriarEvento() {
     setErro("");
 
     try {
-      const response = await api.get("/events/search", { params: { fonte, query: termo } });
+      const response = await api.get("/events/search", {
+        params: { fonte, query: termo },
+      });
       setResultados(response.data);
     } catch (error) {
       setErro(error.response?.data?.message || "Erro ao buscar");
@@ -35,8 +37,9 @@ export default function CriarEvento() {
 
     try {
       const response = await api.post("/events", item);
-      // Vai direto para "Meus Eventos" já com o rascunho criado, pronto pra criar sessão
-      navigate("/organizador/meus-eventos", { state: { eventoImportado: response.data.id } });
+      navigate("/organizador/meus-eventos", {
+        state: { eventoImportado: response.data.id },
+      });
     } catch (error) {
       setErro(error.response?.data?.message || "Erro ao importar evento");
       setImportandoId(null);
@@ -45,69 +48,95 @@ export default function CriarEvento() {
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-10">
-      <p className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+      <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
         Novo evento
       </p>
-      <h1 className="mt-1 text-3xl font-black text-gray-900">Buscar filme ou show</h1>
-      <p className="mt-1 text-sm text-gray-600">
+
+      <h1 className="mt-1 text-3xl font-black text-foreground">
+        Buscar filme ou show
+      </h1>
+
+      <p className="mt-1 text-sm text-muted-foreground">
         Os resultados vêm direto do TMDb ou da Ticketmaster. Escolha um item para importar.
       </p>
 
-      {/* Seletor de fonte */}
       <div className="mt-6 flex gap-2">
         <button
           onClick={() => setFonte("tmdb")}
-          className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-            fonte === "tmdb" ? "bg-green-900 text-white" : "border border-gray-300 bg-white text-gray-600"
+          className={`rounded-full px-5 py-2 text-sm font-semibold shadow-sm transition-colors ${
+            fonte === "tmdb"
+              ? "bg-primary text-primary-foreground"
+              : "border border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
           }`}
         >
           Filmes (TMDb)
         </button>
+
         <button
           onClick={() => setFonte("ticketmaster")}
-          className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-            fonte === "ticketmaster" ? "bg-green-900 text-white" : "border border-gray-300 bg-white text-gray-600"
+          className={`rounded-full px-5 py-2 text-sm font-semibold shadow-sm transition-colors ${
+            fonte === "ticketmaster"
+              ? "bg-primary text-primary-foreground"
+              : "border border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
           }`}
         >
           Eventos (Ticketmaster)
         </button>
       </div>
 
-      {/* Busca */}
       <form onSubmit={buscar} className="mt-4 flex gap-2">
-        <div className="flex flex-1 items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2.5">
-          <Search className="h-4 w-4 text-gray-400" />
+        <div className="flex flex-1 items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5 shadow-sm transition-colors focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-ring/30">
+          <Search className="h-4 w-4 text-muted-foreground" />
           <input
             value={termo}
             onChange={(e) => setTermo(e.target.value)}
-            placeholder={fonte === "tmdb" ? "Ex: Duna, Harry Potter..." : "Ex: nome do show ou artista"}
-            className="flex-1 bg-transparent text-sm outline-none"
+            placeholder={
+              fonte === "tmdb"
+                ? "Ex: Duna, Harry Potter..."
+                : "Ex: nome do show ou artista"
+            }
+            className="flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
           />
         </div>
+
         <button
           type="submit"
           disabled={buscando}
-          className="rounded-full bg-green-900 px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+          className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:opacity-90 disabled:opacity-60"
         >
           {buscando ? "Buscando..." : "Buscar"}
         </button>
       </form>
 
-      {erro && <p className="mt-4 text-sm text-red-600">{erro}</p>}
+      {erro && (
+        <p className="mt-4 rounded-xl border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+          {erro}
+        </p>
+      )}
 
-      {/* Resultados */}
       <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
         {resultados.map((item) => (
-          <div key={item.externalId} className="flex flex-col overflow-hidden rounded-2xl bg-white">
+          <div
+            key={item.externalId}
+            className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
+          >
             {item.imagem && (
-              <img src={item.imagem} alt={item.titulo} className="aspect-2/3 w-full object-cover" />
+              <img
+                src={item.imagem}
+                alt={item.titulo}
+                className="aspect-2/3 w-full object-cover"
+              />
             )}
+
             <div className="flex flex-1 flex-col justify-between gap-3 p-3">
-              <p className="text-sm font-bold leading-tight text-gray-900">{item.titulo}</p>
+              <p className="text-sm font-bold leading-tight text-foreground">
+                {item.titulo}
+              </p>
+
               <button
                 onClick={() => importar(item)}
                 disabled={importandoId === item.externalId}
-                className="rounded-full bg-green-900 py-2 text-xs font-semibold text-white disabled:opacity-60"
+                className="rounded-full bg-primary py-2 text-xs font-semibold text-primary-foreground shadow-sm transition-all hover:opacity-90 disabled:opacity-60"
               >
                 {importandoId === item.externalId ? "Importando..." : "Importar"}
               </button>
@@ -117,7 +146,7 @@ export default function CriarEvento() {
       </div>
 
       {resultados.length === 0 && !buscando && (
-        <p className="mt-10 text-center text-sm text-gray-400">
+        <p className="mt-10 text-center text-sm text-muted-foreground/80">
           Busque um título para ver os resultados.
         </p>
       )}

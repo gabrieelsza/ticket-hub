@@ -89,7 +89,8 @@ export type EventStatus = (typeof EventStatus)[keyof typeof EventStatus]
 export const TicketStatus: {
   RESERVADO: 'RESERVADO',
   PAGO: 'PAGO',
-  VALIDADO: 'VALIDADO'
+  VALIDADO: 'VALIDADO',
+  CANCELADO: 'CANCELADO'
 };
 
 export type TicketStatus = (typeof TicketStatus)[keyof typeof TicketStatus]
@@ -6329,6 +6330,7 @@ export namespace Prisma {
     assento: string | null
     status: $Enums.TicketStatus | null
     qrCode: string | null
+    shareToken: string | null
     sessionId: number | null
     clienteId: number | null
     orderId: number | null
@@ -6340,6 +6342,7 @@ export namespace Prisma {
     assento: string | null
     status: $Enums.TicketStatus | null
     qrCode: string | null
+    shareToken: string | null
     sessionId: number | null
     clienteId: number | null
     orderId: number | null
@@ -6351,6 +6354,7 @@ export namespace Prisma {
     assento: number
     status: number
     qrCode: number
+    shareToken: number
     sessionId: number
     clienteId: number
     orderId: number
@@ -6378,6 +6382,7 @@ export namespace Prisma {
     assento?: true
     status?: true
     qrCode?: true
+    shareToken?: true
     sessionId?: true
     clienteId?: true
     orderId?: true
@@ -6389,6 +6394,7 @@ export namespace Prisma {
     assento?: true
     status?: true
     qrCode?: true
+    shareToken?: true
     sessionId?: true
     clienteId?: true
     orderId?: true
@@ -6400,6 +6406,7 @@ export namespace Prisma {
     assento?: true
     status?: true
     qrCode?: true
+    shareToken?: true
     sessionId?: true
     clienteId?: true
     orderId?: true
@@ -6498,6 +6505,7 @@ export namespace Prisma {
     assento: string
     status: $Enums.TicketStatus
     qrCode: string
+    shareToken: string | null
     sessionId: number
     clienteId: number
     orderId: number
@@ -6528,6 +6536,7 @@ export namespace Prisma {
     assento?: boolean
     status?: boolean
     qrCode?: boolean
+    shareToken?: boolean
     sessionId?: boolean
     clienteId?: boolean
     orderId?: boolean
@@ -6543,6 +6552,7 @@ export namespace Prisma {
     assento?: boolean
     status?: boolean
     qrCode?: boolean
+    shareToken?: boolean
     sessionId?: boolean
     clienteId?: boolean
     orderId?: boolean
@@ -6557,6 +6567,7 @@ export namespace Prisma {
     assento?: boolean
     status?: boolean
     qrCode?: boolean
+    shareToken?: boolean
     sessionId?: boolean
     clienteId?: boolean
     orderId?: boolean
@@ -6571,12 +6582,13 @@ export namespace Prisma {
     assento?: boolean
     status?: boolean
     qrCode?: boolean
+    shareToken?: boolean
     sessionId?: boolean
     clienteId?: boolean
     orderId?: boolean
   }
 
-  export type TicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "assento" | "status" | "qrCode" | "sessionId" | "clienteId" | "orderId", ExtArgs["result"]["ticket"]>
+  export type TicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "assento" | "status" | "qrCode" | "shareToken" | "sessionId" | "clienteId" | "orderId", ExtArgs["result"]["ticket"]>
   export type TicketInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     session?: boolean | SessionDefaultArgs<ExtArgs>
     cliente?: boolean | UserDefaultArgs<ExtArgs>
@@ -6608,6 +6620,7 @@ export namespace Prisma {
       assento: string
       status: $Enums.TicketStatus
       qrCode: string
+      shareToken: string | null
       sessionId: number
       clienteId: number
       orderId: number
@@ -7043,6 +7056,7 @@ export namespace Prisma {
     readonly assento: FieldRef<"Ticket", 'String'>
     readonly status: FieldRef<"Ticket", 'TicketStatus'>
     readonly qrCode: FieldRef<"Ticket", 'String'>
+    readonly shareToken: FieldRef<"Ticket", 'String'>
     readonly sessionId: FieldRef<"Ticket", 'Int'>
     readonly clienteId: FieldRef<"Ticket", 'Int'>
     readonly orderId: FieldRef<"Ticket", 'Int'>
@@ -9787,6 +9801,7 @@ export namespace Prisma {
     assento: 'assento',
     status: 'status',
     qrCode: 'qrCode',
+    shareToken: 'shareToken',
     sessionId: 'sessionId',
     clienteId: 'clienteId',
     orderId: 'orderId'
@@ -10293,6 +10308,7 @@ export namespace Prisma {
     assento?: StringFilter<"Ticket"> | string
     status?: EnumTicketStatusFilter<"Ticket"> | $Enums.TicketStatus
     qrCode?: StringFilter<"Ticket"> | string
+    shareToken?: StringNullableFilter<"Ticket"> | string | null
     sessionId?: IntFilter<"Ticket"> | number
     clienteId?: IntFilter<"Ticket"> | number
     orderId?: IntFilter<"Ticket"> | number
@@ -10308,6 +10324,7 @@ export namespace Prisma {
     assento?: SortOrder
     status?: SortOrder
     qrCode?: SortOrder
+    shareToken?: SortOrderInput | SortOrder
     sessionId?: SortOrder
     clienteId?: SortOrder
     orderId?: SortOrder
@@ -10320,6 +10337,7 @@ export namespace Prisma {
   export type TicketWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     qrCode?: string
+    shareToken?: string
     AND?: TicketWhereInput | TicketWhereInput[]
     OR?: TicketWhereInput[]
     NOT?: TicketWhereInput | TicketWhereInput[]
@@ -10333,7 +10351,7 @@ export namespace Prisma {
     cliente?: XOR<UserScalarRelationFilter, UserWhereInput>
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
     checkin?: XOR<CheckInNullableScalarRelationFilter, CheckInWhereInput> | null
-  }, "id" | "qrCode">
+  }, "id" | "qrCode" | "shareToken">
 
   export type TicketOrderByWithAggregationInput = {
     id?: SortOrder
@@ -10341,6 +10359,7 @@ export namespace Prisma {
     assento?: SortOrder
     status?: SortOrder
     qrCode?: SortOrder
+    shareToken?: SortOrderInput | SortOrder
     sessionId?: SortOrder
     clienteId?: SortOrder
     orderId?: SortOrder
@@ -10360,6 +10379,7 @@ export namespace Prisma {
     assento?: StringWithAggregatesFilter<"Ticket"> | string
     status?: EnumTicketStatusWithAggregatesFilter<"Ticket"> | $Enums.TicketStatus
     qrCode?: StringWithAggregatesFilter<"Ticket"> | string
+    shareToken?: StringNullableWithAggregatesFilter<"Ticket"> | string | null
     sessionId?: IntWithAggregatesFilter<"Ticket"> | number
     clienteId?: IntWithAggregatesFilter<"Ticket"> | number
     orderId?: IntWithAggregatesFilter<"Ticket"> | number
@@ -10750,6 +10770,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     session: SessionCreateNestedOneWithoutTicketsInput
     cliente: UserCreateNestedOneWithoutTicketsInput
     order: OrderCreateNestedOneWithoutTicketsInput
@@ -10762,6 +10783,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     sessionId: number
     clienteId: number
     orderId: number
@@ -10773,6 +10795,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     session?: SessionUpdateOneRequiredWithoutTicketsNestedInput
     cliente?: UserUpdateOneRequiredWithoutTicketsNestedInput
     order?: OrderUpdateOneRequiredWithoutTicketsNestedInput
@@ -10785,6 +10808,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: IntFieldUpdateOperationsInput | number
     clienteId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
@@ -10797,6 +10821,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     sessionId: number
     clienteId: number
     orderId: number
@@ -10807,6 +10832,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TicketUncheckedUpdateManyInput = {
@@ -10815,6 +10841,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: IntFieldUpdateOperationsInput | number
     clienteId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
@@ -11397,6 +11424,7 @@ export namespace Prisma {
     assento?: SortOrder
     status?: SortOrder
     qrCode?: SortOrder
+    shareToken?: SortOrder
     sessionId?: SortOrder
     clienteId?: SortOrder
     orderId?: SortOrder
@@ -11415,6 +11443,7 @@ export namespace Prisma {
     assento?: SortOrder
     status?: SortOrder
     qrCode?: SortOrder
+    shareToken?: SortOrder
     sessionId?: SortOrder
     clienteId?: SortOrder
     orderId?: SortOrder
@@ -11426,6 +11455,7 @@ export namespace Prisma {
     assento?: SortOrder
     status?: SortOrder
     qrCode?: SortOrder
+    shareToken?: SortOrder
     sessionId?: SortOrder
     clienteId?: SortOrder
     orderId?: SortOrder
@@ -12444,6 +12474,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     session: SessionCreateNestedOneWithoutTicketsInput
     order: OrderCreateNestedOneWithoutTicketsInput
     checkin?: CheckInCreateNestedOneWithoutTicketInput
@@ -12455,6 +12486,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     sessionId: number
     orderId: number
     checkin?: CheckInUncheckedCreateNestedOneWithoutTicketInput
@@ -12575,6 +12607,7 @@ export namespace Prisma {
     assento?: StringFilter<"Ticket"> | string
     status?: EnumTicketStatusFilter<"Ticket"> | $Enums.TicketStatus
     qrCode?: StringFilter<"Ticket"> | string
+    shareToken?: StringNullableFilter<"Ticket"> | string | null
     sessionId?: IntFilter<"Ticket"> | number
     clienteId?: IntFilter<"Ticket"> | number
     orderId?: IntFilter<"Ticket"> | number
@@ -12771,6 +12804,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     cliente: UserCreateNestedOneWithoutTicketsInput
     order: OrderCreateNestedOneWithoutTicketsInput
     checkin?: CheckInCreateNestedOneWithoutTicketInput
@@ -12782,6 +12816,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     clienteId: number
     orderId: number
     checkin?: CheckInUncheckedCreateNestedOneWithoutTicketInput
@@ -13148,6 +13183,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     session: SessionCreateNestedOneWithoutTicketsInput
     cliente: UserCreateNestedOneWithoutTicketsInput
     checkin?: CheckInCreateNestedOneWithoutTicketInput
@@ -13159,6 +13195,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     sessionId: number
     clienteId: number
     checkin?: CheckInUncheckedCreateNestedOneWithoutTicketInput
@@ -13229,6 +13266,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     session: SessionCreateNestedOneWithoutTicketsInput
     cliente: UserCreateNestedOneWithoutTicketsInput
     order: OrderCreateNestedOneWithoutTicketsInput
@@ -13240,6 +13278,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     sessionId: number
     clienteId: number
     orderId: number
@@ -13294,6 +13333,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     session?: SessionUpdateOneRequiredWithoutTicketsNestedInput
     cliente?: UserUpdateOneRequiredWithoutTicketsNestedInput
     order?: OrderUpdateOneRequiredWithoutTicketsNestedInput
@@ -13305,6 +13345,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: IntFieldUpdateOperationsInput | number
     clienteId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
@@ -13369,6 +13410,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     sessionId: number
     orderId: number
   }
@@ -13443,6 +13485,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     session?: SessionUpdateOneRequiredWithoutTicketsNestedInput
     order?: OrderUpdateOneRequiredWithoutTicketsNestedInput
     checkin?: CheckInUpdateOneWithoutTicketNestedInput
@@ -13454,6 +13497,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
     checkin?: CheckInUncheckedUpdateOneWithoutTicketNestedInput
@@ -13465,6 +13509,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
   }
@@ -13523,6 +13568,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     clienteId: number
     orderId: number
   }
@@ -13532,6 +13578,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     cliente?: UserUpdateOneRequiredWithoutTicketsNestedInput
     order?: OrderUpdateOneRequiredWithoutTicketsNestedInput
     checkin?: CheckInUpdateOneWithoutTicketNestedInput
@@ -13543,6 +13590,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     clienteId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
     checkin?: CheckInUncheckedUpdateOneWithoutTicketNestedInput
@@ -13554,6 +13602,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     clienteId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
   }
@@ -13564,6 +13613,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
+    shareToken?: string | null
     sessionId: number
     clienteId: number
   }
@@ -13573,6 +13623,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     session?: SessionUpdateOneRequiredWithoutTicketsNestedInput
     cliente?: UserUpdateOneRequiredWithoutTicketsNestedInput
     checkin?: CheckInUpdateOneWithoutTicketNestedInput
@@ -13584,6 +13635,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: IntFieldUpdateOperationsInput | number
     clienteId?: IntFieldUpdateOperationsInput | number
     checkin?: CheckInUncheckedUpdateOneWithoutTicketNestedInput
@@ -13595,6 +13647,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: IntFieldUpdateOperationsInput | number
     clienteId?: IntFieldUpdateOperationsInput | number
   }

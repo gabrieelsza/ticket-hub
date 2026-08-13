@@ -25,15 +25,23 @@ export default function Publicacoes() {
     }, 0);
   }
 
-  if (carregando) return <p className="p-10 text-center text-gray-500">Carregando...</p>;
+  if (carregando) {
+    return (
+      <p className="p-10 text-center text-sm text-muted-foreground">
+        Carregando...
+      </p>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-10">
-      <p className="text-xs font-semibold uppercase tracking-widest text-gray-500">Painel</p>
-      <h1 className="mt-1 text-3xl font-black text-gray-900">Publicações</h1>
+      <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+        Painel
+      </p>
+      <h1 className="mt-1 text-3xl font-black text-foreground">Publicações</h1>
 
       {eventos.length === 0 ? (
-        <p className="mt-8 rounded-2xl bg-white p-8 text-center text-sm text-gray-500">
+        <p className="mt-8 rounded-2xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
           Nenhum evento publicado ainda.
         </p>
       ) : (
@@ -42,17 +50,26 @@ export default function Publicacoes() {
             <Link
               key={evento.id}
               to="/organizador/meus-eventos"
-              className="overflow-hidden rounded-2xl bg-white hover:shadow-sm"
+              className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
             >
-              <img src={evento.imagem} alt={evento.titulo} className="h-40 w-full object-cover" />
+              <div className="overflow-hidden">
+                <img
+                  src={evento.imagem}
+                  alt={evento.titulo}
+                  className="h-40 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                />
+              </div>
+
               <div className="p-4">
-                <h3 className="font-bold text-gray-900">{evento.titulo}</h3>
+                <h3 className="font-bold text-foreground">{evento.titulo}</h3>
+
                 {evento.sessions?.[0] && (
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-muted-foreground">
                     {formatarDataHora(evento.sessions[0].data)}
                   </p>
                 )}
-                <p className="mt-1 text-xs text-gray-500">
+
+                <p className="mt-1 text-xs text-muted-foreground">
                   {totalVendidos(evento)} ingressos vendidos
                 </p>
               </div>

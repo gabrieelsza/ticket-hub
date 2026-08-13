@@ -42,8 +42,6 @@ export default function Login() {
     try {
       const usuario = await login(email, senha);
 
-      // O backend é quem decide o role real da conta.
-      // O que a pessoa escolheu na tela é só a intenção — se não bater, avisamos e não deixamos entrar.
       if (usuario.role !== perfilSelecionado) {
         setErro(
           `Essa conta é de ${formatarRole(usuario.role)}, não de ${formatarRole(perfilSelecionado)}. Selecione o perfil correto.`
@@ -67,13 +65,13 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f3efe6]">
+    <div className="min-h-screen bg-cream">
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center gap-12 px-6 py-12 md:flex-row md:items-center md:justify-center">
-        <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-sm">
-          <h2 className="text-2xl font-black text-gray-900">Entrar no TicketHub</h2>
-          <p className="mt-1 text-sm text-gray-500">Escolha seu perfil e acesse a plataforma.</p>
+        <div className="animate-in fade-in bg-card slide-in-from-bottom-4 duration-500 surface mx-auto w-full max-w-md p-7 sm:p-9 rounded-xl shadow-sm">
+          <h2 className="text-2xl font-black text-card-foreground">Entrar no TicketHub</h2>
+          <p className="mt-1 text-sm text-muted-foreground/80">Escolha seu perfil e acesse a plataforma.</p>
 
-          <p className="mt-6 text-xs font-semibold uppercase tracking-widest text-gray-400">
+          <p className="mt-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             Perfil de acesso
           </p>
 
@@ -92,14 +90,14 @@ export default function Login() {
                   }}
                   className={`flex items-center gap-3 rounded-2xl border p-3 text-left transition-all ${
                     ativo
-                      ? "border-green-800 bg-green-50"
-                      : "border-gray-200 bg-white hover:border-gray-300"
+                      ? "border-primary bg-accent/20"
+                      : "border-input bg-card hover:border-border"
                   }`}
                 >
-                  <Icone className="h-5 w-5 text-gray-700" />
+                  <Icone className="h-5 w-5 text-muted-foreground" />
                   <span>
-                    <span className="block text-sm font-bold text-gray-900">{perfil.label}</span>
-                    <span className="block text-xs text-gray-500">{perfil.descricao}</span>
+                    <span className="block text-sm font-bold text-card-foreground">{perfil.label}</span>
+                    <span className="block text-xs text-muted-foreground">{perfil.descricao}</span>
                   </span>
                 </button>
               );
@@ -107,12 +105,12 @@ export default function Login() {
           </div>
 
           {erro && (
-            <p className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-600">{erro}</p>
+            <p className="mt-4 rounded-xl bg-destructive/50 p-3 text-sm text-destructive">{erro}</p>
           )}
 
           <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-4">
             <div>
-              <label className="mb-1 block text-sm font-semibold text-gray-700">
+              <label className="mb-1 block text-sm font-semibold text-card-foreground">
                 Endereço de e-mail
               </label>
               <input
@@ -120,19 +118,19 @@ export default function Login() {
                 placeholder="voce@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm outline-none focus:border-green-700"
+                className="w-full rounded-xl border border-border bg-muted-foreground/30 p-3 text-sm outline-none focus:border-accent"
                 required
               />
             </div>
 
             <div>
-              <label className="mb-1 block text-sm font-semibold text-gray-700">Senha</label>
+              <label className="mb-1 block text-sm font-semibold text-card-foreground">Senha</label>
               <input
                 type="password"
                 placeholder="••••••••••"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm outline-none focus:border-green-700"
+                className="w-full rounded-xl border border-border bg-muted-foreground/30 p-3 text-sm outline-none focus:border-accent"
                 required
               />
             </div>
@@ -140,15 +138,15 @@ export default function Login() {
             <button
               type="submit"
               disabled={carregando}
-              className="mt-2 rounded-xl bg-green-900 p-3 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+              className="mt-2 rounded-xl bg-forest p-3 uppercase text-sm font-bold text-card transition-opacity hover:opacity-90 disabled:opacity-60"
             >
               {carregando ? "Entrando..." : "Entrar"}
             </button>
           </form>
 
-          <p className="mt-5 text-sm text-gray-700">
+          <p className="mt-5 text-sm text-card-foreground">
             Ainda não tem conta?{" "}
-            <Link to="/register" className="font-bold text-green-800">
+            <Link to="/register" className="font-bold text-forest">
               Criar conta
             </Link>
           </p>

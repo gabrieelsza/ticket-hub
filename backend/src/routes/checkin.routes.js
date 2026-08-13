@@ -7,4 +7,5 @@ const checkinRouter = Router();
 
 checkinRouter.post("/", authMiddleware, roleMiddleware("PORTARIA"), checkinController.validar);
 
+
 export default checkinRouter;

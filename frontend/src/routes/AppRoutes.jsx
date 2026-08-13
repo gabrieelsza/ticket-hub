@@ -13,6 +13,9 @@ import ListaEventos from "../pages/cliente/ListaEventos";
 import DetalheEvento from "../pages/cliente/DetalheEvento";
 
 import Layout from "../components/Layout";
+import Checkout from "../pages/cliente/Checkout";
+import SelecaoAssentos from "../pages/cliente/SelecaoAssentos";
+import MeusIngressos from "../pages/cliente/MeusIngressos";
 
 export default function AppRoutes() {
   return (
@@ -23,7 +26,9 @@ export default function AppRoutes() {
 
         <Route element={<Layout />}>
           <Route path="/" element={<ListaEventos />} />
+          <Route path="/eventos" element={<ListaEventos />} />
           <Route path="/eventos/:id" element={<DetalheEvento />} />
+          <Route path="*" element={<div>Página não encontrada</div>} />
 
           <Route
             path="/organizador"
@@ -63,17 +68,27 @@ export default function AppRoutes() {
 
           <Route
             path="/sessoes/:sessionId/assentos"
-            element={<ProtectedRoute rolesPermitidas={["CLIENTE"]} />}
+            element={
+              <ProtectedRoute rolesPermitidas={["CLIENTE"]}>
+                <SelecaoAssentos />
+              </ProtectedRoute>
+            }
           />
-
           <Route
             path="/checkout"
-            element={<ProtectedRoute rolesPermitidas={["CLIENTE"]} />}
+            element={
+              <ProtectedRoute rolesPermitidas={["CLIENTE"]}>
+                <Checkout />
+              </ProtectedRoute>
+            }
           />
-
           <Route
             path="/meus-ingressos"
-            element={<ProtectedRoute rolesPermitidas={["CLIENTE"]} />}
+            element={
+              <ProtectedRoute rolesPermitidas={["CLIENTE"]}>
+                <MeusIngressos />
+              </ProtectedRoute>
+            }
           />
 
           <Route

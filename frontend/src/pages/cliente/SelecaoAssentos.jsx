@@ -17,7 +17,7 @@ export default function SelecaoAssentos() {
         const response = await api.get(`/sessions/${sessionId}`);
         setSession(response.data);
       } catch (error) {
-        setErro("Sessão não encontrada");
+        setErro(error?.response?.data?.message || "Sessão não encontrada");
       } finally {
         setCarregando(false);
       }
@@ -27,19 +27,19 @@ export default function SelecaoAssentos() {
   }, [sessionId]);
 
   function alternarAssento(codigo, status) {
-    if (status === "OCUPADO") return; // não deixa clicar em assento ocupado
+    if (status === "OCUPADO") return;
 
     setAssentosSelecionados((atual) =>
       atual.includes(codigo)
-        ? atual.filter((c) => c !== codigo) // já estava selecionado -> remove
-        : [...atual, codigo] // não estava -> adiciona
+        ? atual.filter((c) => c !== codigo)
+        : [...atual, codigo]
     );
   }
 
   function agruparPorFileira(assentos) {
     const fileiras = {};
     for (const assento of assentos) {
-      const letra = assento.codigo[0]; // "A1" -> "A"
+      const letra = assento.codigo[0];
       if (!fileiras[letra]) fileiras[letra] = [];
       fileiras[letra].push(assento);
     }
@@ -54,43 +54,57 @@ export default function SelecaoAssentos() {
     });
   }
 
-  if (carregando) return <p className="p-10 text-center text-gray-500">Carregando...</p>;
-  if (erro || !session) return <p className="p-10 text-center text-red-600">{erro}</p>;
+  if (carregando) {
+    return <p className="p-10 text-center text-muted-foreground">Carregando...</p>;
+  }
+
+  if (erro || !session) {
+    return <p className="p-10 text-center text-destructive">{erro || "Sessão não encontrada"}</p>;
+  }
 
   const assentos = session.seatMap?.layout?.assentos || [];
   const fileiras = agruparPorFileira(assentos);
-  const valorPorAssento = 30; // mesmo valor fixo usado no backend, por enquanto
+  const valorPorAssento = 30;
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-10">
-      <p className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+      <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
         Passo 1 de 3 · Assentos
       </p>
-      <h1 className="mt-1 text-3xl font-black text-gray-900">{session.event?.titulo}</h1>
-      <p className="text-sm text-gray-600">
+
+      <h1 className="mt-1 text-3xl font-black text-foreground">
+        {session.event?.titulo}
+      </h1>
+
+      <p className="text-sm text-muted-foreground">
         {formatarDataHora(session.data)} · {session.local}
       </p>
 
       <div className="mt-8 grid gap-6 md:grid-cols-[1fr_320px]">
-        {/* Mapa de assentos */}
-        <div className="rounded-3xl bg-white p-6">
-          <div className="mx-auto mb-8 h-1.5 w-3/4 rounded-full bg-gray-300" />
-          <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-gray-400">
+        <div className="rounded-3xl border border-border bg-card p-6 shadow-md">
+          <div className="mx-auto mb-8 h-1.5 w-3/4 rounded-full bg-muted" />
+          <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground/80">
             Tela
           </p>
 
           <div className="flex flex-col items-center gap-2">
             {Object.entries(fileiras).map(([letra, assentosDaFileira]) => (
               <div key={letra} className="flex items-center gap-2">
-                <span className="w-4 text-xs font-semibold text-gray-400">{letra}</span>
+                <span className="w-4 text-xs font-semibold text-muted-foreground/80">
+                  {letra}
+                </span>
+
                 {assentosDaFileira.map((assento) => {
                   const selecionado = assentosSelecionados.includes(assento.codigo);
 
-                  let estilo = "border-gray-300 bg-white text-gray-600 hover:border-gray-400";
+                  let estilo =
+                    "border-border bg-background text-muted-foreground hover:border-primary/50 hover:bg-muted";
                   if (assento.status === "OCUPADO") {
-                    estilo = "border-transparent bg-gray-200 text-gray-400 cursor-not-allowed";
+                    estilo =
+                      "cursor-not-allowed border-transparent bg-muted text-muted-foreground/50";
                   } else if (selecionado) {
-                    estilo = "border-transparent bg-green-900 text-white";
+                    estilo =
+                      "border-transparent bg-primary text-primary-foreground shadow-sm";
                   }
 
                   return (
@@ -108,48 +122,54 @@ export default function SelecaoAssentos() {
             ))}
           </div>
 
-          {/* Legenda */}
-          <div className="mt-8 flex justify-center gap-6 text-xs text-gray-600">
+          <div className="mt-8 flex justify-center gap-6 text-xs text-muted-foreground">
             <span className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full border border-gray-300 bg-white" /> Disponível
+              <span className="h-3 w-3 rounded-full border border-border bg-background" />
+              Disponível
             </span>
+
             <span className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-green-900" /> Selecionado
+              <span className="h-3 w-3 rounded-full bg-primary" />
+              Selecionado
             </span>
+
             <span className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-gray-200" /> Ocupado
+              <span className="h-3 w-3 rounded-full bg-muted" />
+              Ocupado
             </span>
           </div>
         </div>
 
-        {/* Resumo */}
-        <div className="h-fit rounded-3xl bg-white p-6">
-          <h2 className="text-lg font-bold text-gray-900">Resumo</h2>
+        <div className="h-fit rounded-3xl border border-border bg-card p-6 shadow-md">
+          <h2 className="text-lg font-bold text-foreground">Resumo</h2>
 
-          <div className="mt-4 flex flex-col gap-2 text-sm text-gray-700">
+          <div className="mt-4 flex flex-col gap-2 text-sm text-foreground">
             <div className="flex justify-between">
-              <span className="text-gray-500">Sessão</span>
+              <span className="text-muted-foreground">Sessão</span>
               <span className="font-semibold">{formatarDataHora(session.data)}</span>
             </div>
+
             <div className="flex justify-between">
-              <span className="text-gray-500">Local</span>
+              <span className="text-muted-foreground">Local</span>
               <span className="font-semibold">{session.local}</span>
             </div>
+
             <div className="flex justify-between">
-              <span className="text-gray-500">Assentos</span>
+              <span className="text-muted-foreground">Assentos</span>
               <span className="font-semibold">
                 {assentosSelecionados.length > 0 ? assentosSelecionados.join(", ") : "—"}
               </span>
             </div>
+
             <div className="flex justify-between">
-              <span className="text-gray-500">Quantidade</span>
+              <span className="text-muted-foreground">Quantidade</span>
               <span className="font-semibold">{assentosSelecionados.length}</span>
             </div>
           </div>
 
-          <div className="mt-4 flex justify-between border-t border-gray-100 pt-4">
-            <span className="font-semibold text-gray-900">Valor total</span>
-            <span className="text-xl font-black text-green-900">
+          <div className="mt-4 flex justify-between border-t border-border pt-4">
+            <span className="font-semibold text-foreground">Valor total</span>
+            <span className="text-xl font-black text-primary">
               {(assentosSelecionados.length * valorPorAssento).toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
@@ -160,13 +180,13 @@ export default function SelecaoAssentos() {
           <button
             onClick={irParaCheckout}
             disabled={assentosSelecionados.length === 0}
-            className="mt-5 w-full rounded-full bg-green-900 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+            className="mt-5 w-full rounded-full bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Continuar
           </button>
 
           {assentosSelecionados.length === 0 && (
-            <p className="mt-2 text-center text-xs text-gray-400">
+            <p className="mt-2 text-center text-xs text-muted-foreground/80">
               Selecione ao menos um assento.
             </p>
           )}

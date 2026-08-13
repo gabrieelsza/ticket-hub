@@ -4,7 +4,7 @@ import api from "../../services/api";
 
 export default function ValidarIngresso() {
   const [codigo, setCodigo] = useState("");
-  const [resultado, setResultado] = useState(null); 
+  const [resultado, setResultado] = useState(null);
   const [carregando, setCarregando] = useState(false);
 
   async function handleSubmit(e) {
@@ -16,7 +16,11 @@ export default function ValidarIngresso() {
 
     try {
       const response = await api.post("/checkin", { qrCode: codigo.trim() });
-      setResultado({ sucesso: true, mensagem: "Acesso liberado", ticket: response.data.ticket });
+      setResultado({
+        sucesso: true,
+        mensagem: "Acesso liberado",
+        ticket: response.data.ticket,
+      });
     } catch (error) {
       setResultado({
         sucesso: false,
@@ -28,11 +32,29 @@ export default function ValidarIngresso() {
     }
   }
 
+  const resultadoClasses = resultado?.sucesso
+    ? {
+        box: "border-green-500/20 bg-green-500/10",
+        icon: "text-green-600 dark:text-green-400",
+        text: "text-green-700 dark:text-green-300",
+      }
+    : {
+        box: "border-destructive/20 bg-destructive/10",
+        icon: "text-destructive",
+        text: "text-destructive",
+      };
+
   return (
     <div className="mx-auto flex min-h-[80vh] max-w-md flex-col items-center justify-center px-6 py-10">
-      <ScanLine className="h-10 w-10 text-green-900" />
-      <h1 className="mt-3 text-2xl font-black text-gray-900">Validar ingresso</h1>
-      <p className="mt-1 text-center text-sm text-gray-500">
+      <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-card shadow-sm">
+        <ScanLine className="h-8 w-8 text-primary" />
+      </div>
+
+      <h1 className="mt-3 text-2xl font-black text-foreground">
+        Validar ingresso
+      </h1>
+
+      <p className="mt-1 text-center text-sm text-muted-foreground">
         Digite ou escaneie o código do ingresso para liberar o acesso.
       </p>
 
@@ -42,12 +64,13 @@ export default function ValidarIngresso() {
           value={codigo}
           onChange={(e) => setCodigo(e.target.value)}
           placeholder="Código do ingresso"
-          className="w-full rounded-2xl border border-gray-300 bg-white p-4 text-center text-lg outline-none focus:border-green-700"
+          className="w-full rounded-2xl border border-input bg-background p-4 text-center text-lg text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/50 focus:ring-2 focus:ring-ring/30"
         />
+
         <button
           type="submit"
           disabled={carregando}
-          className="mt-3 w-full rounded-full bg-green-900 py-3 text-sm font-semibold text-white disabled:opacity-60"
+          className="mt-3 w-full rounded-full bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:opacity-90 disabled:opacity-60"
         >
           {carregando ? "Verificando..." : "Validar"}
         </button>
@@ -55,20 +78,23 @@ export default function ValidarIngresso() {
 
       {resultado && (
         <div
-          className={`mt-8 flex w-full flex-col items-center gap-2 rounded-3xl p-6 text-center ${
-            resultado.sucesso ? "bg-green-50" : "bg-red-50"
-          }`}
+          role="alert"
+          className={`mt-8 flex w-full flex-col items-center gap-2 rounded-3xl border p-6 text-center ${resultadoClasses.box}`}
         >
           {resultado.sucesso ? (
-            <CheckCircle2 className="h-12 w-12 text-green-700" />
+            <CheckCircle2 className={`h-12 w-12 ${resultadoClasses.icon}`} />
           ) : (
-            <XCircle className="h-12 w-12 text-red-600" />
+            <XCircle className={`h-12 w-12 ${resultadoClasses.icon}`} />
           )}
-          <p className={`text-lg font-black ${resultado.sucesso ? "text-green-800" : "text-red-700"}`}>
+
+          <p className={`text-lg font-black ${resultadoClasses.text}`}>
             {resultado.mensagem}
           </p>
+
           {resultado.sucesso && resultado.ticket && (
-            <p className="text-sm text-gray-600">Assento {resultado.ticket.assento}</p>
+            <p className="text-sm text-muted-foreground">
+              Assento {resultado.ticket.assento}
+            </p>
           )}
         </div>
       )}

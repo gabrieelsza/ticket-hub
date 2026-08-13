@@ -55,13 +55,13 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f3efe6]">
+    <div className="min-h-screen bg-cream">
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center gap-12 px-6 py-12 md:flex-row md:items-center md:justify-center">
-        <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-sm">
-          <h2 className="text-2xl font-black text-gray-900">Criar conta no TicketHub</h2>
-          <p className="mt-1 text-sm text-gray-500">Escolha seu perfil e comece a usar a plataforma.</p>
+        <div className="w-full max-w-md rounded-3xl bg-card p-8 shadow-sm">
+          <h2 className="text-2xl font-black text-card-foreground">Criar conta no TicketHub</h2>
+          <p className="mt-1 text-sm text-muted-foreground/80">Escolha seu perfil e comece a usar a plataforma.</p>
 
-          <p className="mt-6 text-xs font-semibold uppercase tracking-widest text-gray-400">
+          <p className="mt-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             Perfil de acesso
           </p>
 
@@ -77,34 +77,34 @@ export default function Register() {
                   onClick={() => setPerfilSelecionado(perfil.valor)}
                   className={`flex items-center gap-3 rounded-2xl border p-3 text-left transition-all ${
                     ativo
-                      ? "border-green-800 bg-green-50"
-                      : "border-gray-200 bg-white hover:border-gray-300"
+                      ? "border-primary bg-accent/20"
+                      : "border-input bg-card hover:border-border"
                   }`}
                 >
-                  <Icone className="h-5 w-5 text-gray-700" />
+                  <Icone className="h-5 w-5 text-muted-foreground" />
                   <span>
-                    <span className="block text-sm font-bold text-gray-900">{perfil.label}</span>
-                    <span className="block text-xs text-gray-500">{perfil.descricaoTexto}</span>
+                    <span className="block text-sm font-bold text-card-foreground">{perfil.label}</span>
+                    <span className="block text-xs text-muted-foreground">{perfil.descricaoTexto}</span>
                   </span>
                 </button>
               );
             })}
           </div>
 
-          <div className="mt-4 rounded-2xl border border-dashed border-green-800/30 bg-green-50/50 p-3">
-            <p className="flex items-center gap-2 text-sm font-bold text-green-900">
+          <div className="mt-4 rounded-2xl border border-dashed border-forest bg-accent/10 p-3">
+            <p className="flex items-center gap-2 text-sm font-bold text-forest">
               {perfilAtual.descricaoTitulo}
             </p>
-            <p className="mt-1 text-xs text-gray-600">{perfilAtual.descricaoTexto}</p>
+            <p className="mt-1 text-xs text-muted-foreground">{perfilAtual.descricaoTexto}</p>
           </div>
 
           {erro && (
-            <p className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-600">{erro}</p>
+            <p className="mt-4 rounded-xl bg-destructive/50 p-3 text-sm text-destructive">{erro}</p>
           )}
 
           <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-4">
             <div>
-              <label className="mb-1 block text-sm font-semibold text-gray-700">
+              <label className="mb-1 block text-sm font-semibold text-card-foreground">
                 Nome completo
               </label>
               <input
@@ -112,13 +112,13 @@ export default function Register() {
                 placeholder="Como devemos te chamar"
                 value={form.nome}
                 onChange={handleChange}
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm outline-none focus:border-green-700"
+                className="w-full rounded-xl border border-input bg- p-3 text-sm outline-none"
                 required
               />
             </div>
 
             <div>
-              <label className="mb-1 block text-sm font-semibold text-gray-700">
+              <label className="mb-1 block text-sm font-semibold card-foreground">
                 Endereço de e-mail
               </label>
               <input
@@ -127,20 +127,20 @@ export default function Register() {
                 placeholder="voce@email.com"
                 value={form.email}
                 onChange={handleChange}
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm outline-none focus:border-green-700"
+                className="w-full rounded-xl border border-input bg- p-3 text-sm outline-none"
                 required
               />
             </div>
 
             <div>
-              <label className="mb-1 block text-sm font-semibold text-gray-700">Senha</label>
+              <label className="mb-1 block text-sm font-semibold text-card-foreground0">Senha</label>
               <input
                 name="senha"
                 type="password"
                 placeholder="••••••••••"
                 value={form.senha}
                 onChange={handleChange}
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm outline-none focus:border-green-700"
+                className="w-full rounded-xl border border-input bg- p-3 text-sm outline-none"
                 required
               />
             </div>
@@ -148,15 +148,15 @@ export default function Register() {
             <button
               type="submit"
               disabled={carregando}
-              className="mt-2 rounded-xl bg-green-900 p-3 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+              className="mt-2 rounded-xl bg-forest p-3 text-sm font-bold text-background transition-opacity hover:opacity-90 disabled:opacity-60"
             >
               {carregando ? "Criando conta..." : `Criar conta de ${perfilAtual.label}`}
             </button>
           </form>
 
-          <p className="mt-5 text-sm text-gray-700">
+          <p className="mt-5 text-sm text-card-foreground">
             Já tem conta?{" "}
-            <Link to="/login" className="font-bold text-green-800">
+            <Link to="/login" className="font-bold text-forest">
               Fazer login
             </Link>
           </p>

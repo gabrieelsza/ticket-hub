@@ -162,6 +162,7 @@ exports.Prisma.TicketScalarFieldEnum = {
   assento: 'assento',
   status: 'status',
   qrCode: 'qrCode',
+  shareToken: 'shareToken',
   sessionId: 'sessionId',
   clienteId: 'clienteId',
   orderId: 'orderId'
@@ -230,7 +231,8 @@ exports.EventStatus = exports.$Enums.EventStatus = {
 exports.TicketStatus = exports.$Enums.TicketStatus = {
   RESERVADO: 'RESERVADO',
   PAGO: 'PAGO',
-  VALIDADO: 'VALIDADO'
+  VALIDADO: 'VALIDADO',
+  CANCELADO: 'CANCELADO'
 };
 
 exports.OrderStatus = exports.$Enums.OrderStatus = {

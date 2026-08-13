@@ -6,6 +6,10 @@ class CheckinService {
       throw new Error("Informe o código do ingresso");
     }
 
+    if (!codigoEhValido(qrCode)) {
+        throw new Error("Código inválido ou adulterado");
+    }
+
     const ticket = await prisma.ticket.findUnique({
       where: { qrCode },
       include: { checkin: true },
