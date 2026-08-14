@@ -48,7 +48,7 @@ class EventService {
 
   async publicar({ id, organizadorId }) {
     const evento = await prisma.event.findUnique({
-      where: { id: Number(id) },
+      where: { id: String(id) },
     });
 
     if (!evento) {
@@ -60,32 +60,36 @@ class EventService {
     }
 
     return prisma.event.update({
-      where: { id: Number(id) },
+      where: { id: String(id) },
       data: { status: "PUBLICADO" },
     });
   }
 
   async buscarPorId(id) {
-  const evento = await prisma.event.findUnique({
-    where: { id: Number(id) },
-    include: {
-      sessions: {
-        include: { seatMap: true },
+    const evento = await prisma.event.findUnique({
+      where: { id: String(id) },
+      include: {
+        sessions: {
+          include: { seatMap: true },
+        },
       },
-    },
-  });
+    });
 
-  if (!evento) {
-    throw new Error("Evento não encontrado");
+    if (!evento) {
+      throw new Error("Evento não encontrado");
+    }
+
+    return evento;
   }
-
-  return evento;
-}
 
   async listarPublicados() {
     return prisma.event.findMany({
       where: { status: "PUBLICADO" },
-      include: { sessions: true },
+      include: {
+        sessions: {
+          include: { seatMap: true },
+        },
+      },
     });
   }
 
