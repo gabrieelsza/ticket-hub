@@ -63,16 +63,16 @@ async function main() {
   });
 
   const evento = await prisma.event.upsert({
-    where: { externalId: "seed-campo-silencio" },
+    where: { externalId: "seed-homem-aranha-um-novo-dia" },
     update: {},
     create: {
-      titulo: "Campo de Silêncio",
+      titulo: "Homem-Aranha: Um Novo Dia",
       descricao:
-        "Uma engenheira aeroespacial retorna à fazenda da família na véspera do último lançamento tripulado.",
-      imagem: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80",
+        "Após o mundo ter esquecido seu nome, Peter Parker inicia um novo capítulo em sua vida, conciliando as aulas da faculdade, um trabalho de meio período e sua responsabilidade como o Homem-Aranha. Mas quando uma força misteriosa começa a desmantelar a cidade de dentro para fora, Peter se vê preso entre inimigos poderosos, legados antigos e aliados inesperados.",
+      imagem: "https://share.google/yVhqfiMSSgfRltE90",
       tipo: "FILME",
       sourceApi: "TMDB",
-      externalId: "seed-campo-silencio",
+      externalId: "seed-homem-aranha-um-novo-dia",
       status: "PUBLICADO",
       organizadorId: organizador.id,
     },
