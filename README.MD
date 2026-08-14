@@ -339,6 +339,24 @@ Algumas evoluções que eu gostaria de implementar nas próximas versões:
 - incluir paginação, filtros e ordenação mais avançados;
 - adicionar observabilidade básica, como logs estruturados e monitoramento de erros.
 
+## Uso de IA
+
+Utilizei ferramentas de IA como apoio durante o desenvolvimento,
+principalmente para:
+
+- esclarecer dúvidas sobre APIs e bibliotecas;
+- revisar trechos de código;
+- investigar possíveis erros;
+- discutir alternativas de implementação;
+- auxiliar na documentação.
+
+As decisões de arquitetura, modelagem, regras de negócio,
+integração entre as partes e validação do funcionamento
+foram realizadas/revisadas por mim.
+
+A IA foi utilizada como ferramenta de apoio, não como substituta
+da compreensão e validação do código.
+
 ## Autor
 
 Gabriel Souza  
