@@ -262,6 +262,36 @@ Os testes cobrem três fluxos críticos:
 - tentativa de check-in duplicado.
 
 Cada teste cria seus próprios dados e não depende do seed.
+## Decisões técnicas
+
+### Por que PostgreSQL?
+
+O sistema possui relacionamentos entre usuários, eventos,
+sessões, pedidos, ingressos e check-ins. Por isso optei por
+um banco relacional, garantindo integridade referencial e
+consistência das operações.
+
+### Por que Prisma?
+
+Utilizei Prisma para facilitar a modelagem, migrations,
+relacionamentos e acesso tipado ao PostgreSQL.
+
+### Por que JWT?
+
+A autenticação utiliza JWT para manter a API stateless e
+permitir autorização baseada no perfil do usuário.
+
+### Controle de concorrência
+
+A reserva de assentos é realizada dentro de uma transação
+para evitar que dois usuários consigam adquirir o mesmo
+assento simultaneamente.
+
+### Por que separar frontend e backend?
+
+A separação permite que a API seja consumida por diferentes
+clientes no futuro, além de manter responsabilidades
+separadas entre apresentação e regras de negócio.
 
 ## Limitações conhecidas
 
