@@ -42,6 +42,15 @@ export default function AppRoutes() {
           />
 
           <Route
+            path="/organizador/"
+            element={
+              <ProtectedRoute rolesPermitidas={["ORGANIZADOR"]}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
             path="/organizador/publicacoes"
             element={
               <ProtectedRoute rolesPermitidas={["ORGANIZADOR"]}>

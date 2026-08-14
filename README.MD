@@ -333,7 +333,6 @@ Algumas evoluções que eu gostaria de implementar nas próximas versões:
 - implementar atualização de assentos em tempo real com WebSocket;
 - adicionar cancelamento de ingresso com regras de negócio;
 - permitir preço configurável por sessão ou tipo de evento;
-- gerar QR Code visual real para leitura por câmera;
 - adicionar relatórios e exportação para organizadores;
 - ampliar cobertura de testes, incluindo frontend e integração ponta a ponta;
 - incluir paginação, filtros e ordenação mais avançados;
