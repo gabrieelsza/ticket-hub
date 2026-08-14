@@ -12,12 +12,15 @@ class CheckinController {
 
       return res.status(200).json(resultado);
     } catch (error) {
-     
       if (error.code === "P2002") {
-        return res.status(409).json({ message: "Ingresso já foi utilizado anteriormente" });
+        return res.status(409).json({
+          message: "Ingresso já foi utilizado anteriormente",
+        });
       }
 
-      return res.status(400).json({ message: error.message });
+      return res.status(error.statusCode || 400).json({
+        message: error.message,
+      });
     }
   }
 }

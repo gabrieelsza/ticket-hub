@@ -8,14 +8,20 @@ import Dashboard from "../pages/organizador/Dashboard";
 import CriarEvento from "../pages/organizador/CriarEvento";
 import MeusEventos from "../pages/organizador/MeusEventos";
 import CriarSessao from "../pages/organizador/CriarSessao";
+import Publicacoes from "../pages/organizador/Publicacoes";
+import Rascunhos from "../pages/organizador/Rascunhos";
 
 import ListaEventos from "../pages/cliente/ListaEventos";
 import DetalheEvento from "../pages/cliente/DetalheEvento";
+import Filmes from "../pages/cliente/Filmes";
 
 import Layout from "../components/Layout";
 import Checkout from "../pages/cliente/Checkout";
 import SelecaoAssentos from "../pages/cliente/SelecaoAssentos";
 import MeusIngressos from "../pages/cliente/MeusIngressos";
+import Eventos from "../pages/cliente/Eventos";
+
+import ValidarIngresso from "../pages/portaria/ValidarIngresso";
 
 export default function AppRoutes() {
   return (
@@ -26,12 +32,17 @@ export default function AppRoutes() {
 
         <Route element={<Layout />}>
           <Route path="/" element={<ListaEventos />} />
-          <Route path="/eventos" element={<ListaEventos />} />
+          <Route path="/eventos" element={<Eventos />} />
           <Route path="/eventos/:id" element={<DetalheEvento />} />
-          <Route path="*" element={<div>Página não encontrada</div>} />
+          <Route
+            path="*"
+            element={
+              <div className="w-64 mx-auto mt-10">Página não encontrada</div>
+            }
+          />
 
           <Route
-            path="/organizador"
+            path="/organizador/publicacoes"
             element={
               <ProtectedRoute rolesPermitidas={["ORGANIZADOR"]}>
                 <Dashboard />
@@ -67,10 +78,36 @@ export default function AppRoutes() {
           />
 
           <Route
+            path="/organizador/rascunhos"
+            element={
+              <ProtectedRoute rolesPermitidas={["ORGANIZADOR"]}>
+                <Rascunhos />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/organizador/publicacoes"
+            element={
+              <ProtectedRoute rolesPermitidas={["ORGANIZADOR"]}>
+                <Publicacoes />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
             path="/sessoes/:sessionId/assentos"
             element={
               <ProtectedRoute rolesPermitidas={["CLIENTE"]}>
                 <SelecaoAssentos />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/filmes"
+            element={
+              <ProtectedRoute rolesPermitidas={["CLIENTE"]}>
+                <Filmes />
               </ProtectedRoute>
             }
           />
@@ -93,11 +130,13 @@ export default function AppRoutes() {
 
           <Route
             path="/portaria"
-            element={<ProtectedRoute rolesPermitidas={["PORTARIA"]} />}
+            element={
+              <ProtectedRoute rolesPermitidas={["PORTARIA"]}>
+                <ValidarIngresso />
+              </ProtectedRoute>
+            }
           />
         </Route>
-
-        <Route path="*" element={<div>Página não encontrada</div>} />
       </Routes>
     </BrowserRouter>
   );

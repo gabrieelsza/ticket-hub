@@ -34,7 +34,7 @@ export default function Dashboard() {
         </div>
 
         <Link
-          to="/organizador/criar-evento"
+          to="/organizador/criar-e  vento"
           className="flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:opacity-90"
         >
           <PlusCircle className="h-4 w-4" />

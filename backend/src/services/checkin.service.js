@@ -1,13 +1,18 @@
 import prisma from "../lib/prisma.js";
+import { codigoEhValido } from "../utils/qrcode.util.js";
 
 class CheckinService {
   async validar({ qrCode, portariaId }) {
     if (!qrCode) {
-      throw new Error("Informe o código do ingresso");
+      const error = new Error("Informe o código do ingresso");
+      error.statusCode = 400;
+      throw error;
     }
 
     if (!codigoEhValido(qrCode)) {
-        throw new Error("Código inválido ou adulterado");
+      const error = new Error("Código inválido ou adulterado");
+      error.statusCode = 400;
+      throw error;
     }
 
     const ticket = await prisma.ticket.findUnique({
@@ -16,17 +21,25 @@ class CheckinService {
     });
 
     if (!ticket) {
-      throw new Error("Ingresso não encontrado");
+      const error = new Error("Ingresso não encontrado");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    if (ticket.status === "VALIDADO") {
+      const error = new Error("Check-in já realizado para este ingresso");
+      error.statusCode = 409;
+      throw error;
     }
 
     if (ticket.status !== "PAGO") {
-      throw new Error(`Ingresso com status inválido para entrada: ${ticket.status}`);
+      const error = new Error(
+        `Ingresso com status inválido para entrada: ${ticket.status}`
+      );
+      error.statusCode = 400;
+      throw error;
     }
 
-    if (ticket.checkin) {
-      throw new Error("Ingresso já foi utilizado anteriormente");
-    }
-    
     return prisma.$transaction(async (tx) => {
       const checkin = await tx.checkIn.create({
         data: {
@@ -35,12 +48,12 @@ class CheckinService {
         },
       });
 
-      await tx.ticket.update({
+      const ticketAtualizado = await tx.ticket.update({
         where: { id: ticket.id },
         data: { status: "VALIDADO" },
       });
 
-      return { liberado: true, checkin, ticket };
+      return { liberado: true, checkin, ticket: ticketAtualizado };
     });
   }
 }

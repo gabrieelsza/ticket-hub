@@ -7,6 +7,7 @@ const eventRouter = Router();
 
 // CLIENTE
 eventRouter.get("/", eventController.listarPublicados);
+eventRouter.get("/search", authMiddleware, roleMiddleware("CLIENTE"), eventController.buscarNaApiExterna);
 
 // ORGANIZADOR
 eventRouter.get("/search", authMiddleware, roleMiddleware("ORGANIZADOR"), eventController.buscarNaApiExterna);
