@@ -69,7 +69,7 @@ async function main() {
       titulo: "Homem-Aranha: Um Novo Dia",
       descricao:
         "Após o mundo ter esquecido seu nome, Peter Parker inicia um novo capítulo em sua vida, conciliando as aulas da faculdade, um trabalho de meio período e sua responsabilidade como o Homem-Aranha. Mas quando uma força misteriosa começa a desmantelar a cidade de dentro para fora, Peter se vê preso entre inimigos poderosos, legados antigos e aliados inesperados.",
-      imagem: "https://share.google/yVhqfiMSSgfRltE90",
+      imagem: "https://cinemacomcritica.com.br/wp-content/uploads/2026/08/homem-aranha-um-novo-dia-poster.webp",
       tipo: "FILME",
       sourceApi: "TMDB",
       externalId: "seed-homem-aranha-um-novo-dia",
