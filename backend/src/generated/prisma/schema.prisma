@@ -61,14 +61,14 @@ model User {
 }
 
 model Event {
-  id         Int         @id @default(autoincrement())
+  id         String      @id @default(uuid())
+  externalId String?     @unique
   createdAt  DateTime    @default(now())
   titulo     String
   descricao  String?
   imagem     String?
   tipo       EventType
   sourceApi  SourceApi
-  externalId String
   status     EventStatus @default(RASCUNHO)
 
   organizadorId Int
@@ -83,8 +83,8 @@ model Session {
   data      DateTime
   local     String
 
-  eventId Int
-  event   Event @relation(fields: [eventId], references: [id])
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id])
 
   seatMap SeatMap?
   tickets Ticket[]
@@ -104,7 +104,7 @@ model Ticket {
   assento    String
   status     TicketStatus @default(RESERVADO)
   qrCode     String       @unique
-  shareToken String?      @unique
+  shareToken String       @unique
 
   sessionId Int
   session   Session @relation(fields: [sessionId], references: [id])

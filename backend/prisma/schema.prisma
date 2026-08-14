@@ -54,27 +54,27 @@ model User {
   nome      String
   role      Role
 
-  eventos   Event[]
-  orders    Order[]
-  tickets   Ticket[]
-  checkins  CheckIn[]
+  eventos  Event[]
+  orders   Order[]
+  tickets  Ticket[]
+  checkins CheckIn[]
 }
 
 model Event {
-  id            Int         @id @default(autoincrement())
-  createdAt     DateTime    @default(now())
-  titulo        String
-  descricao     String?
-  imagem        String?
-  tipo          EventType
-  sourceApi     SourceApi
-  externalId    String
-  status        EventStatus @default(RASCUNHO)
+  id         String      @id @default(uuid())
+  externalId String?     @unique
+  createdAt  DateTime    @default(now())
+  titulo     String
+  descricao  String?
+  imagem     String?
+  tipo       EventType
+  sourceApi  SourceApi
+  status     EventStatus @default(RASCUNHO)
 
   organizadorId Int
-  organizador   User        @relation(fields: [organizadorId], references: [id])
+  organizador   User @relation(fields: [organizadorId], references: [id])
 
-  sessions      Session[]
+  sessions Session[]
 }
 
 model Session {
@@ -83,19 +83,19 @@ model Session {
   data      DateTime
   local     String
 
-  eventId   Int
-  event     Event    @relation(fields: [eventId], references: [id])
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id])
 
-  seatMap   SeatMap?
-  tickets   Ticket[]
+  seatMap SeatMap?
+  tickets Ticket[]
 }
 
 model SeatMap {
-  id         Int      @id @default(autoincrement())
-  layout     Json     // estrutura de fileiras/assentos e status
+  id     Int  @id @default(autoincrement())
+  layout Json // estrutura de fileiras/assentos e status
 
-  sessionId  Int      @unique
-  session    Session  @relation(fields: [sessionId], references: [id])
+  sessionId Int     @unique
+  session   Session @relation(fields: [sessionId], references: [id])
 }
 
 model Ticket {
@@ -104,39 +104,39 @@ model Ticket {
   assento    String
   status     TicketStatus @default(RESERVADO)
   qrCode     String       @unique
-  shareToken String       @unique 
+  shareToken String       @unique
 
-  sessionId  Int
-  session    Session      @relation(fields: [sessionId], references: [id])
+  sessionId Int
+  session   Session @relation(fields: [sessionId], references: [id])
 
-  clienteId  Int
-  cliente    User         @relation(fields: [clienteId], references: [id])
+  clienteId Int
+  cliente   User @relation(fields: [clienteId], references: [id])
 
-  orderId    Int
-  order      Order        @relation(fields: [orderId], references: [id])
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id])
 
-  checkin    CheckIn?
+  checkin CheckIn?
 }
 
 model Order {
-  id          Int         @id @default(autoincrement())
-  createdAt   DateTime    @default(now())
-  valorTotal  Float
-  status      OrderStatus @default(PENDENTE)
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  valorTotal Float
+  status     OrderStatus @default(PENDENTE)
 
-  clienteId   Int
-  cliente     User        @relation(fields: [clienteId], references: [id])
+  clienteId Int
+  cliente   User @relation(fields: [clienteId], references: [id])
 
-  tickets     Ticket[]
+  tickets Ticket[]
 }
 
 model CheckIn {
-  id         Int      @id @default(autoincrement())
-  dataHora   DateTime @default(now())
+  id       Int      @id @default(autoincrement())
+  dataHora DateTime @default(now())
 
-  ticketId   Int      @unique
-  ticket     Ticket   @relation(fields: [ticketId], references: [id])
+  ticketId Int    @unique
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
 
   portariaId Int
-  portaria   User     @relation(fields: [portariaId], references: [id])
+  portaria   User @relation(fields: [portariaId], references: [id])
 }

@@ -5,11 +5,13 @@ import { randomUUID } from "crypto";
 function gerarLayoutPadrao() {
   const fileiras = ["A", "B", "C", "D", "E"];
   const assentos = [];
+
   for (const fileira of fileiras) {
     for (let numero = 1; numero <= 8; numero++) {
       assentos.push({ codigo: `${fileira}${numero}`, status: "DISPONIVEL" });
     }
   }
+
   return { assentos };
 }
 
@@ -38,7 +40,7 @@ async function main() {
     },
   });
 
-  const cliente2 = await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { email: "cliente2@tickethub.com" },
     update: {},
     create: {
@@ -60,13 +62,14 @@ async function main() {
     },
   });
 
-  // Evento publicado, com uma sessão e assentos disponíveis
-  const evento = await prisma.event.create({
-    data: {
+  const evento = await prisma.event.upsert({
+    where: { externalId: "seed-campo-silencio" },
+    update: {},
+    create: {
       titulo: "Campo de Silêncio",
       descricao:
         "Uma engenheira aeroespacial retorna à fazenda da família na véspera do último lançamento tripulado.",
-      imagem: "https://image.tmdb.org/t/p/w500/exemplo.jpg",
+      imagem: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80",
       tipo: "FILME",
       sourceApi: "TMDB",
       externalId: "seed-campo-silencio",
@@ -75,36 +78,64 @@ async function main() {
     },
   });
 
-  const session = await prisma.session.create({
-    data: {
+  let session = await prisma.session.findFirst({
+    where: {
       eventId: evento.id,
       data: new Date("2026-08-25T20:00:00"),
       local: "Cine Belas Artes — Sala 1",
-      seatMap: { create: { layout: gerarLayoutPadrao() } },
     },
     include: { seatMap: true },
   });
 
-  // Um ingresso já comprado pelo cliente1, pra ter algo em "Meus Ingressos" e testar check-in
-  const order = await prisma.order.create({
-    data: { clienteId: cliente1.id, valorTotal: 30, status: "PAGO" },
-  });
+  if (!session) {
+    session = await prisma.session.create({
+      data: {
+        eventId: evento.id,
+        data: new Date("2026-08-25T20:00:00"),
+        local: "Cine Belas Artes — Sala 1",
+        seatMap: {
+          create: {
+            layout: gerarLayoutPadrao(),
+          },
+        },
+      },
+      include: { seatMap: true },
+    });
+  }
 
-  await prisma.ticket.create({
-    data: {
+  const ticketExistente = await prisma.ticket.findFirst({
+    where: {
       sessionId: session.id,
       clienteId: cliente1.id,
       assento: "A1",
-      status: "PAGO",
-      qrCode: randomUUID(),
-      shareToken: randomUUID(),
-      orderId: order.id,
     },
   });
 
+  if (!ticketExistente) {
+    const order = await prisma.order.create({
+      data: {
+        clienteId: cliente1.id,
+        valorTotal: 30,
+        status: "PAGO",
+      },
+    });
+
+    await prisma.ticket.create({
+      data: {
+        sessionId: session.id,
+        clienteId: cliente1.id,
+        assento: "A1",
+        status: "PAGO",
+        qrCode: randomUUID(),
+        shareToken: randomUUID(),
+        orderId: order.id,
+      },
+    });
+  }
+
   console.log("Seed concluído:");
   console.log("- Organizador: organizador@tickethub.com / 123456");
-  console.log("- Cliente 1: cliente1@tickethub.com / 123456 (já tem 1 ingresso comprado)");
+  console.log("- Cliente 1: cliente1@tickethub.com / 123456");
   console.log("- Cliente 2: cliente2@tickethub.com / 123456");
   console.log("- Portaria: portaria@tickethub.com / 123456");
   console.log(`- Evento publicado: "${evento.titulo}" com sessão em 25/08 às 20h`);

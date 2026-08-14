@@ -131,13 +131,13 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.EventScalarFieldEnum = {
   id: 'id',
+  externalId: 'externalId',
   createdAt: 'createdAt',
   titulo: 'titulo',
   descricao: 'descricao',
   imagem: 'imagem',
   tipo: 'tipo',
   sourceApi: 'sourceApi',
-  externalId: 'externalId',
   status: 'status',
   organizadorId: 'organizadorId'
 };

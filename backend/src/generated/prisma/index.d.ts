@@ -2890,50 +2890,48 @@ export namespace Prisma {
   }
 
   export type EventAvgAggregateOutputType = {
-    id: number | null
     organizadorId: number | null
   }
 
   export type EventSumAggregateOutputType = {
-    id: number | null
     organizadorId: number | null
   }
 
   export type EventMinAggregateOutputType = {
-    id: number | null
+    id: string | null
+    externalId: string | null
     createdAt: Date | null
     titulo: string | null
     descricao: string | null
     imagem: string | null
     tipo: $Enums.EventType | null
     sourceApi: $Enums.SourceApi | null
-    externalId: string | null
     status: $Enums.EventStatus | null
     organizadorId: number | null
   }
 
   export type EventMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
+    externalId: string | null
     createdAt: Date | null
     titulo: string | null
     descricao: string | null
     imagem: string | null
     tipo: $Enums.EventType | null
     sourceApi: $Enums.SourceApi | null
-    externalId: string | null
     status: $Enums.EventStatus | null
     organizadorId: number | null
   }
 
   export type EventCountAggregateOutputType = {
     id: number
+    externalId: number
     createdAt: number
     titulo: number
     descricao: number
     imagem: number
     tipo: number
     sourceApi: number
-    externalId: number
     status: number
     organizadorId: number
     _all: number
@@ -2941,50 +2939,48 @@ export namespace Prisma {
 
 
   export type EventAvgAggregateInputType = {
-    id?: true
     organizadorId?: true
   }
 
   export type EventSumAggregateInputType = {
-    id?: true
     organizadorId?: true
   }
 
   export type EventMinAggregateInputType = {
     id?: true
+    externalId?: true
     createdAt?: true
     titulo?: true
     descricao?: true
     imagem?: true
     tipo?: true
     sourceApi?: true
-    externalId?: true
     status?: true
     organizadorId?: true
   }
 
   export type EventMaxAggregateInputType = {
     id?: true
+    externalId?: true
     createdAt?: true
     titulo?: true
     descricao?: true
     imagem?: true
     tipo?: true
     sourceApi?: true
-    externalId?: true
     status?: true
     organizadorId?: true
   }
 
   export type EventCountAggregateInputType = {
     id?: true
+    externalId?: true
     createdAt?: true
     titulo?: true
     descricao?: true
     imagem?: true
     tipo?: true
     sourceApi?: true
-    externalId?: true
     status?: true
     organizadorId?: true
     _all?: true
@@ -3077,14 +3073,14 @@ export namespace Prisma {
   }
 
   export type EventGroupByOutputType = {
-    id: number
+    id: string
+    externalId: string | null
     createdAt: Date
     titulo: string
     descricao: string | null
     imagem: string | null
     tipo: $Enums.EventType
     sourceApi: $Enums.SourceApi
-    externalId: string
     status: $Enums.EventStatus
     organizadorId: number
     _count: EventCountAggregateOutputType | null
@@ -3110,13 +3106,13 @@ export namespace Prisma {
 
   export type EventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    externalId?: boolean
     createdAt?: boolean
     titulo?: boolean
     descricao?: boolean
     imagem?: boolean
     tipo?: boolean
     sourceApi?: boolean
-    externalId?: boolean
     status?: boolean
     organizadorId?: boolean
     organizador?: boolean | UserDefaultArgs<ExtArgs>
@@ -3126,13 +3122,13 @@ export namespace Prisma {
 
   export type EventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    externalId?: boolean
     createdAt?: boolean
     titulo?: boolean
     descricao?: boolean
     imagem?: boolean
     tipo?: boolean
     sourceApi?: boolean
-    externalId?: boolean
     status?: boolean
     organizadorId?: boolean
     organizador?: boolean | UserDefaultArgs<ExtArgs>
@@ -3140,13 +3136,13 @@ export namespace Prisma {
 
   export type EventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    externalId?: boolean
     createdAt?: boolean
     titulo?: boolean
     descricao?: boolean
     imagem?: boolean
     tipo?: boolean
     sourceApi?: boolean
-    externalId?: boolean
     status?: boolean
     organizadorId?: boolean
     organizador?: boolean | UserDefaultArgs<ExtArgs>
@@ -3154,18 +3150,18 @@ export namespace Prisma {
 
   export type EventSelectScalar = {
     id?: boolean
+    externalId?: boolean
     createdAt?: boolean
     titulo?: boolean
     descricao?: boolean
     imagem?: boolean
     tipo?: boolean
     sourceApi?: boolean
-    externalId?: boolean
     status?: boolean
     organizadorId?: boolean
   }
 
-  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "titulo" | "descricao" | "imagem" | "tipo" | "sourceApi" | "externalId" | "status" | "organizadorId", ExtArgs["result"]["event"]>
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "externalId" | "createdAt" | "titulo" | "descricao" | "imagem" | "tipo" | "sourceApi" | "status" | "organizadorId", ExtArgs["result"]["event"]>
   export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organizador?: boolean | UserDefaultArgs<ExtArgs>
     sessions?: boolean | Event$sessionsArgs<ExtArgs>
@@ -3185,14 +3181,14 @@ export namespace Prisma {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
+      externalId: string | null
       createdAt: Date
       titulo: string
       descricao: string | null
       imagem: string | null
       tipo: $Enums.EventType
       sourceApi: $Enums.SourceApi
-      externalId: string
       status: $Enums.EventStatus
       organizadorId: number
     }, ExtArgs["result"]["event"]>
@@ -3620,14 +3616,14 @@ export namespace Prisma {
    * Fields of the Event model
    */
   interface EventFieldRefs {
-    readonly id: FieldRef<"Event", 'Int'>
+    readonly id: FieldRef<"Event", 'String'>
+    readonly externalId: FieldRef<"Event", 'String'>
     readonly createdAt: FieldRef<"Event", 'DateTime'>
     readonly titulo: FieldRef<"Event", 'String'>
     readonly descricao: FieldRef<"Event", 'String'>
     readonly imagem: FieldRef<"Event", 'String'>
     readonly tipo: FieldRef<"Event", 'EventType'>
     readonly sourceApi: FieldRef<"Event", 'SourceApi'>
-    readonly externalId: FieldRef<"Event", 'String'>
     readonly status: FieldRef<"Event", 'EventStatus'>
     readonly organizadorId: FieldRef<"Event", 'Int'>
   }
@@ -4087,12 +4083,10 @@ export namespace Prisma {
 
   export type SessionAvgAggregateOutputType = {
     id: number | null
-    eventId: number | null
   }
 
   export type SessionSumAggregateOutputType = {
     id: number | null
-    eventId: number | null
   }
 
   export type SessionMinAggregateOutputType = {
@@ -4100,7 +4094,7 @@ export namespace Prisma {
     createdAt: Date | null
     data: Date | null
     local: string | null
-    eventId: number | null
+    eventId: string | null
   }
 
   export type SessionMaxAggregateOutputType = {
@@ -4108,7 +4102,7 @@ export namespace Prisma {
     createdAt: Date | null
     data: Date | null
     local: string | null
-    eventId: number | null
+    eventId: string | null
   }
 
   export type SessionCountAggregateOutputType = {
@@ -4123,12 +4117,10 @@ export namespace Prisma {
 
   export type SessionAvgAggregateInputType = {
     id?: true
-    eventId?: true
   }
 
   export type SessionSumAggregateInputType = {
     id?: true
-    eventId?: true
   }
 
   export type SessionMinAggregateInputType = {
@@ -4247,7 +4239,7 @@ export namespace Prisma {
     createdAt: Date
     data: Date
     local: string
-    eventId: number
+    eventId: string
     _count: SessionCountAggregateOutputType | null
     _avg: SessionAvgAggregateOutputType | null
     _sum: SessionSumAggregateOutputType | null
@@ -4333,7 +4325,7 @@ export namespace Prisma {
       createdAt: Date
       data: Date
       local: string
-      eventId: number
+      eventId: string
     }, ExtArgs["result"]["session"]>
     composites: {}
   }
@@ -4764,7 +4756,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Session", 'DateTime'>
     readonly data: FieldRef<"Session", 'DateTime'>
     readonly local: FieldRef<"Session", 'String'>
-    readonly eventId: FieldRef<"Session", 'Int'>
+    readonly eventId: FieldRef<"Session", 'String'>
   }
     
 
@@ -6505,7 +6497,7 @@ export namespace Prisma {
     assento: string
     status: $Enums.TicketStatus
     qrCode: string
-    shareToken: string | null
+    shareToken: string
     sessionId: number
     clienteId: number
     orderId: number
@@ -6620,7 +6612,7 @@ export namespace Prisma {
       assento: string
       status: $Enums.TicketStatus
       qrCode: string
-      shareToken: string | null
+      shareToken: string
       sessionId: number
       clienteId: number
       orderId: number
@@ -9761,13 +9753,13 @@ export namespace Prisma {
 
   export const EventScalarFieldEnum: {
     id: 'id',
+    externalId: 'externalId',
     createdAt: 'createdAt',
     titulo: 'titulo',
     descricao: 'descricao',
     imagem: 'imagem',
     tipo: 'tipo',
     sourceApi: 'sourceApi',
-    externalId: 'externalId',
     status: 'status',
     organizadorId: 'organizadorId'
   };
@@ -10108,14 +10100,14 @@ export namespace Prisma {
     AND?: EventWhereInput | EventWhereInput[]
     OR?: EventWhereInput[]
     NOT?: EventWhereInput | EventWhereInput[]
-    id?: IntFilter<"Event"> | number
+    id?: StringFilter<"Event"> | string
+    externalId?: StringNullableFilter<"Event"> | string | null
     createdAt?: DateTimeFilter<"Event"> | Date | string
     titulo?: StringFilter<"Event"> | string
     descricao?: StringNullableFilter<"Event"> | string | null
     imagem?: StringNullableFilter<"Event"> | string | null
     tipo?: EnumEventTypeFilter<"Event"> | $Enums.EventType
     sourceApi?: EnumSourceApiFilter<"Event"> | $Enums.SourceApi
-    externalId?: StringFilter<"Event"> | string
     status?: EnumEventStatusFilter<"Event"> | $Enums.EventStatus
     organizadorId?: IntFilter<"Event"> | number
     organizador?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -10124,13 +10116,13 @@ export namespace Prisma {
 
   export type EventOrderByWithRelationInput = {
     id?: SortOrder
+    externalId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     titulo?: SortOrder
     descricao?: SortOrderInput | SortOrder
     imagem?: SortOrderInput | SortOrder
     tipo?: SortOrder
     sourceApi?: SortOrder
-    externalId?: SortOrder
     status?: SortOrder
     organizadorId?: SortOrder
     organizador?: UserOrderByWithRelationInput
@@ -10138,7 +10130,8 @@ export namespace Prisma {
   }
 
   export type EventWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
+    externalId?: string
     AND?: EventWhereInput | EventWhereInput[]
     OR?: EventWhereInput[]
     NOT?: EventWhereInput | EventWhereInput[]
@@ -10148,22 +10141,21 @@ export namespace Prisma {
     imagem?: StringNullableFilter<"Event"> | string | null
     tipo?: EnumEventTypeFilter<"Event"> | $Enums.EventType
     sourceApi?: EnumSourceApiFilter<"Event"> | $Enums.SourceApi
-    externalId?: StringFilter<"Event"> | string
     status?: EnumEventStatusFilter<"Event"> | $Enums.EventStatus
     organizadorId?: IntFilter<"Event"> | number
     organizador?: XOR<UserScalarRelationFilter, UserWhereInput>
     sessions?: SessionListRelationFilter
-  }, "id">
+  }, "id" | "externalId">
 
   export type EventOrderByWithAggregationInput = {
     id?: SortOrder
+    externalId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     titulo?: SortOrder
     descricao?: SortOrderInput | SortOrder
     imagem?: SortOrderInput | SortOrder
     tipo?: SortOrder
     sourceApi?: SortOrder
-    externalId?: SortOrder
     status?: SortOrder
     organizadorId?: SortOrder
     _count?: EventCountOrderByAggregateInput
@@ -10177,14 +10169,14 @@ export namespace Prisma {
     AND?: EventScalarWhereWithAggregatesInput | EventScalarWhereWithAggregatesInput[]
     OR?: EventScalarWhereWithAggregatesInput[]
     NOT?: EventScalarWhereWithAggregatesInput | EventScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Event"> | number
+    id?: StringWithAggregatesFilter<"Event"> | string
+    externalId?: StringNullableWithAggregatesFilter<"Event"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     titulo?: StringWithAggregatesFilter<"Event"> | string
     descricao?: StringNullableWithAggregatesFilter<"Event"> | string | null
     imagem?: StringNullableWithAggregatesFilter<"Event"> | string | null
     tipo?: EnumEventTypeWithAggregatesFilter<"Event"> | $Enums.EventType
     sourceApi?: EnumSourceApiWithAggregatesFilter<"Event"> | $Enums.SourceApi
-    externalId?: StringWithAggregatesFilter<"Event"> | string
     status?: EnumEventStatusWithAggregatesFilter<"Event"> | $Enums.EventStatus
     organizadorId?: IntWithAggregatesFilter<"Event"> | number
   }
@@ -10197,7 +10189,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Session"> | Date | string
     data?: DateTimeFilter<"Session"> | Date | string
     local?: StringFilter<"Session"> | string
-    eventId?: IntFilter<"Session"> | number
+    eventId?: StringFilter<"Session"> | string
     event?: XOR<EventScalarRelationFilter, EventWhereInput>
     seatMap?: XOR<SeatMapNullableScalarRelationFilter, SeatMapWhereInput> | null
     tickets?: TicketListRelationFilter
@@ -10222,7 +10214,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Session"> | Date | string
     data?: DateTimeFilter<"Session"> | Date | string
     local?: StringFilter<"Session"> | string
-    eventId?: IntFilter<"Session"> | number
+    eventId?: StringFilter<"Session"> | string
     event?: XOR<EventScalarRelationFilter, EventWhereInput>
     seatMap?: XOR<SeatMapNullableScalarRelationFilter, SeatMapWhereInput> | null
     tickets?: TicketListRelationFilter
@@ -10249,7 +10241,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     data?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     local?: StringWithAggregatesFilter<"Session"> | string
-    eventId?: IntWithAggregatesFilter<"Session"> | number
+    eventId?: StringWithAggregatesFilter<"Session"> | string
   }
 
   export type SeatMapWhereInput = {
@@ -10308,7 +10300,7 @@ export namespace Prisma {
     assento?: StringFilter<"Ticket"> | string
     status?: EnumTicketStatusFilter<"Ticket"> | $Enums.TicketStatus
     qrCode?: StringFilter<"Ticket"> | string
-    shareToken?: StringNullableFilter<"Ticket"> | string | null
+    shareToken?: StringFilter<"Ticket"> | string
     sessionId?: IntFilter<"Ticket"> | number
     clienteId?: IntFilter<"Ticket"> | number
     orderId?: IntFilter<"Ticket"> | number
@@ -10324,7 +10316,7 @@ export namespace Prisma {
     assento?: SortOrder
     status?: SortOrder
     qrCode?: SortOrder
-    shareToken?: SortOrderInput | SortOrder
+    shareToken?: SortOrder
     sessionId?: SortOrder
     clienteId?: SortOrder
     orderId?: SortOrder
@@ -10359,7 +10351,7 @@ export namespace Prisma {
     assento?: SortOrder
     status?: SortOrder
     qrCode?: SortOrder
-    shareToken?: SortOrderInput | SortOrder
+    shareToken?: SortOrder
     sessionId?: SortOrder
     clienteId?: SortOrder
     orderId?: SortOrder
@@ -10379,7 +10371,7 @@ export namespace Prisma {
     assento?: StringWithAggregatesFilter<"Ticket"> | string
     status?: EnumTicketStatusWithAggregatesFilter<"Ticket"> | $Enums.TicketStatus
     qrCode?: StringWithAggregatesFilter<"Ticket"> | string
-    shareToken?: StringNullableWithAggregatesFilter<"Ticket"> | string | null
+    shareToken?: StringWithAggregatesFilter<"Ticket"> | string
     sessionId?: IntWithAggregatesFilter<"Ticket"> | number
     clienteId?: IntWithAggregatesFilter<"Ticket"> | number
     orderId?: IntWithAggregatesFilter<"Ticket"> | number
@@ -10577,92 +10569,95 @@ export namespace Prisma {
   }
 
   export type EventCreateInput = {
+    id?: string
+    externalId?: string | null
     createdAt?: Date | string
     titulo: string
     descricao?: string | null
     imagem?: string | null
     tipo: $Enums.EventType
     sourceApi: $Enums.SourceApi
-    externalId: string
     status?: $Enums.EventStatus
     organizador: UserCreateNestedOneWithoutEventosInput
     sessions?: SessionCreateNestedManyWithoutEventInput
   }
 
   export type EventUncheckedCreateInput = {
-    id?: number
+    id?: string
+    externalId?: string | null
     createdAt?: Date | string
     titulo: string
     descricao?: string | null
     imagem?: string | null
     tipo: $Enums.EventType
     sourceApi: $Enums.SourceApi
-    externalId: string
     status?: $Enums.EventStatus
     organizadorId: number
     sessions?: SessionUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type EventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     titulo?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     imagem?: NullableStringFieldUpdateOperationsInput | string | null
     tipo?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
     sourceApi?: EnumSourceApiFieldUpdateOperationsInput | $Enums.SourceApi
-    externalId?: StringFieldUpdateOperationsInput | string
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     organizador?: UserUpdateOneRequiredWithoutEventosNestedInput
     sessions?: SessionUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     titulo?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     imagem?: NullableStringFieldUpdateOperationsInput | string | null
     tipo?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
     sourceApi?: EnumSourceApiFieldUpdateOperationsInput | $Enums.SourceApi
-    externalId?: StringFieldUpdateOperationsInput | string
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     organizadorId?: IntFieldUpdateOperationsInput | number
     sessions?: SessionUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type EventCreateManyInput = {
-    id?: number
+    id?: string
+    externalId?: string | null
     createdAt?: Date | string
     titulo: string
     descricao?: string | null
     imagem?: string | null
     tipo: $Enums.EventType
     sourceApi: $Enums.SourceApi
-    externalId: string
     status?: $Enums.EventStatus
     organizadorId: number
   }
 
   export type EventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     titulo?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     imagem?: NullableStringFieldUpdateOperationsInput | string | null
     tipo?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
     sourceApi?: EnumSourceApiFieldUpdateOperationsInput | $Enums.SourceApi
-    externalId?: StringFieldUpdateOperationsInput | string
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   }
 
   export type EventUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     titulo?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     imagem?: NullableStringFieldUpdateOperationsInput | string | null
     tipo?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
     sourceApi?: EnumSourceApiFieldUpdateOperationsInput | $Enums.SourceApi
-    externalId?: StringFieldUpdateOperationsInput | string
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     organizadorId?: IntFieldUpdateOperationsInput | number
   }
@@ -10681,7 +10676,7 @@ export namespace Prisma {
     createdAt?: Date | string
     data: Date | string
     local: string
-    eventId: number
+    eventId: string
     seatMap?: SeatMapUncheckedCreateNestedOneWithoutSessionInput
     tickets?: TicketUncheckedCreateNestedManyWithoutSessionInput
   }
@@ -10700,7 +10695,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     local?: StringFieldUpdateOperationsInput | string
-    eventId?: IntFieldUpdateOperationsInput | number
+    eventId?: StringFieldUpdateOperationsInput | string
     seatMap?: SeatMapUncheckedUpdateOneWithoutSessionNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutSessionNestedInput
   }
@@ -10710,7 +10705,7 @@ export namespace Prisma {
     createdAt?: Date | string
     data: Date | string
     local: string
-    eventId: number
+    eventId: string
   }
 
   export type SessionUpdateManyMutationInput = {
@@ -10724,7 +10719,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     local?: StringFieldUpdateOperationsInput | string
-    eventId?: IntFieldUpdateOperationsInput | number
+    eventId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SeatMapCreateInput = {
@@ -10770,7 +10765,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     session: SessionCreateNestedOneWithoutTicketsInput
     cliente: UserCreateNestedOneWithoutTicketsInput
     order: OrderCreateNestedOneWithoutTicketsInput
@@ -10783,7 +10778,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     sessionId: number
     clienteId: number
     orderId: number
@@ -10795,7 +10790,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     session?: SessionUpdateOneRequiredWithoutTicketsNestedInput
     cliente?: UserUpdateOneRequiredWithoutTicketsNestedInput
     order?: OrderUpdateOneRequiredWithoutTicketsNestedInput
@@ -10808,7 +10803,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     sessionId?: IntFieldUpdateOperationsInput | number
     clienteId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
@@ -10821,7 +10816,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     sessionId: number
     clienteId: number
     orderId: number
@@ -10832,7 +10827,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
   }
 
   export type TicketUncheckedUpdateManyInput = {
@@ -10841,7 +10836,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     sessionId?: IntFieldUpdateOperationsInput | number
     clienteId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
@@ -11182,50 +11177,48 @@ export namespace Prisma {
 
   export type EventCountOrderByAggregateInput = {
     id?: SortOrder
+    externalId?: SortOrder
     createdAt?: SortOrder
     titulo?: SortOrder
     descricao?: SortOrder
     imagem?: SortOrder
     tipo?: SortOrder
     sourceApi?: SortOrder
-    externalId?: SortOrder
     status?: SortOrder
     organizadorId?: SortOrder
   }
 
   export type EventAvgOrderByAggregateInput = {
-    id?: SortOrder
     organizadorId?: SortOrder
   }
 
   export type EventMaxOrderByAggregateInput = {
     id?: SortOrder
+    externalId?: SortOrder
     createdAt?: SortOrder
     titulo?: SortOrder
     descricao?: SortOrder
     imagem?: SortOrder
     tipo?: SortOrder
     sourceApi?: SortOrder
-    externalId?: SortOrder
     status?: SortOrder
     organizadorId?: SortOrder
   }
 
   export type EventMinOrderByAggregateInput = {
     id?: SortOrder
+    externalId?: SortOrder
     createdAt?: SortOrder
     titulo?: SortOrder
     descricao?: SortOrder
     imagem?: SortOrder
     tipo?: SortOrder
     sourceApi?: SortOrder
-    externalId?: SortOrder
     status?: SortOrder
     organizadorId?: SortOrder
   }
 
   export type EventSumOrderByAggregateInput = {
-    id?: SortOrder
     organizadorId?: SortOrder
   }
 
@@ -11297,7 +11290,6 @@ export namespace Prisma {
 
   export type SessionAvgOrderByAggregateInput = {
     id?: SortOrder
-    eventId?: SortOrder
   }
 
   export type SessionMaxOrderByAggregateInput = {
@@ -11318,7 +11310,6 @@ export namespace Prisma {
 
   export type SessionSumOrderByAggregateInput = {
     id?: SortOrder
-    eventId?: SortOrder
   }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -12410,26 +12401,27 @@ export namespace Prisma {
   }
 
   export type EventCreateWithoutOrganizadorInput = {
+    id?: string
+    externalId?: string | null
     createdAt?: Date | string
     titulo: string
     descricao?: string | null
     imagem?: string | null
     tipo: $Enums.EventType
     sourceApi: $Enums.SourceApi
-    externalId: string
     status?: $Enums.EventStatus
     sessions?: SessionCreateNestedManyWithoutEventInput
   }
 
   export type EventUncheckedCreateWithoutOrganizadorInput = {
-    id?: number
+    id?: string
+    externalId?: string | null
     createdAt?: Date | string
     titulo: string
     descricao?: string | null
     imagem?: string | null
     tipo: $Enums.EventType
     sourceApi: $Enums.SourceApi
-    externalId: string
     status?: $Enums.EventStatus
     sessions?: SessionUncheckedCreateNestedManyWithoutEventInput
   }
@@ -12474,7 +12466,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     session: SessionCreateNestedOneWithoutTicketsInput
     order: OrderCreateNestedOneWithoutTicketsInput
     checkin?: CheckInCreateNestedOneWithoutTicketInput
@@ -12486,7 +12478,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     sessionId: number
     orderId: number
     checkin?: CheckInUncheckedCreateNestedOneWithoutTicketInput
@@ -12543,14 +12535,14 @@ export namespace Prisma {
     AND?: EventScalarWhereInput | EventScalarWhereInput[]
     OR?: EventScalarWhereInput[]
     NOT?: EventScalarWhereInput | EventScalarWhereInput[]
-    id?: IntFilter<"Event"> | number
+    id?: StringFilter<"Event"> | string
+    externalId?: StringNullableFilter<"Event"> | string | null
     createdAt?: DateTimeFilter<"Event"> | Date | string
     titulo?: StringFilter<"Event"> | string
     descricao?: StringNullableFilter<"Event"> | string | null
     imagem?: StringNullableFilter<"Event"> | string | null
     tipo?: EnumEventTypeFilter<"Event"> | $Enums.EventType
     sourceApi?: EnumSourceApiFilter<"Event"> | $Enums.SourceApi
-    externalId?: StringFilter<"Event"> | string
     status?: EnumEventStatusFilter<"Event"> | $Enums.EventStatus
     organizadorId?: IntFilter<"Event"> | number
   }
@@ -12607,7 +12599,7 @@ export namespace Prisma {
     assento?: StringFilter<"Ticket"> | string
     status?: EnumTicketStatusFilter<"Ticket"> | $Enums.TicketStatus
     qrCode?: StringFilter<"Ticket"> | string
-    shareToken?: StringNullableFilter<"Ticket"> | string | null
+    shareToken?: StringFilter<"Ticket"> | string
     sessionId?: IntFilter<"Ticket"> | number
     clienteId?: IntFilter<"Ticket"> | number
     orderId?: IntFilter<"Ticket"> | number
@@ -12752,30 +12744,31 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Session"> | Date | string
     data?: DateTimeFilter<"Session"> | Date | string
     local?: StringFilter<"Session"> | string
-    eventId?: IntFilter<"Session"> | number
+    eventId?: StringFilter<"Session"> | string
   }
 
   export type EventCreateWithoutSessionsInput = {
+    id?: string
+    externalId?: string | null
     createdAt?: Date | string
     titulo: string
     descricao?: string | null
     imagem?: string | null
     tipo: $Enums.EventType
     sourceApi: $Enums.SourceApi
-    externalId: string
     status?: $Enums.EventStatus
     organizador: UserCreateNestedOneWithoutEventosInput
   }
 
   export type EventUncheckedCreateWithoutSessionsInput = {
-    id?: number
+    id?: string
+    externalId?: string | null
     createdAt?: Date | string
     titulo: string
     descricao?: string | null
     imagem?: string | null
     tipo: $Enums.EventType
     sourceApi: $Enums.SourceApi
-    externalId: string
     status?: $Enums.EventStatus
     organizadorId: number
   }
@@ -12804,7 +12797,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     cliente: UserCreateNestedOneWithoutTicketsInput
     order: OrderCreateNestedOneWithoutTicketsInput
     checkin?: CheckInCreateNestedOneWithoutTicketInput
@@ -12816,7 +12809,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     clienteId: number
     orderId: number
     checkin?: CheckInUncheckedCreateNestedOneWithoutTicketInput
@@ -12844,26 +12837,27 @@ export namespace Prisma {
   }
 
   export type EventUpdateWithoutSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     titulo?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     imagem?: NullableStringFieldUpdateOperationsInput | string | null
     tipo?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
     sourceApi?: EnumSourceApiFieldUpdateOperationsInput | $Enums.SourceApi
-    externalId?: StringFieldUpdateOperationsInput | string
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     organizador?: UserUpdateOneRequiredWithoutEventosNestedInput
   }
 
   export type EventUncheckedUpdateWithoutSessionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     titulo?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     imagem?: NullableStringFieldUpdateOperationsInput | string | null
     tipo?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
     sourceApi?: EnumSourceApiFieldUpdateOperationsInput | $Enums.SourceApi
-    externalId?: StringFieldUpdateOperationsInput | string
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     organizadorId?: IntFieldUpdateOperationsInput | number
   }
@@ -12917,7 +12911,7 @@ export namespace Prisma {
     createdAt?: Date | string
     data: Date | string
     local: string
-    eventId: number
+    eventId: string
     tickets?: TicketUncheckedCreateNestedManyWithoutSessionInput
   }
 
@@ -12950,7 +12944,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     local?: StringFieldUpdateOperationsInput | string
-    eventId?: IntFieldUpdateOperationsInput | number
+    eventId?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutSessionNestedInput
   }
 
@@ -12967,7 +12961,7 @@ export namespace Prisma {
     createdAt?: Date | string
     data: Date | string
     local: string
-    eventId: number
+    eventId: string
     seatMap?: SeatMapUncheckedCreateNestedOneWithoutSessionInput
   }
 
@@ -13064,7 +13058,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     local?: StringFieldUpdateOperationsInput | string
-    eventId?: IntFieldUpdateOperationsInput | number
+    eventId?: StringFieldUpdateOperationsInput | string
     seatMap?: SeatMapUncheckedUpdateOneWithoutSessionNestedInput
   }
 
@@ -13183,7 +13177,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     session: SessionCreateNestedOneWithoutTicketsInput
     cliente: UserCreateNestedOneWithoutTicketsInput
     checkin?: CheckInCreateNestedOneWithoutTicketInput
@@ -13195,7 +13189,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     sessionId: number
     clienteId: number
     checkin?: CheckInUncheckedCreateNestedOneWithoutTicketInput
@@ -13266,7 +13260,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     session: SessionCreateNestedOneWithoutTicketsInput
     cliente: UserCreateNestedOneWithoutTicketsInput
     order: OrderCreateNestedOneWithoutTicketsInput
@@ -13278,7 +13272,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     sessionId: number
     clienteId: number
     orderId: number
@@ -13333,7 +13327,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     session?: SessionUpdateOneRequiredWithoutTicketsNestedInput
     cliente?: UserUpdateOneRequiredWithoutTicketsNestedInput
     order?: OrderUpdateOneRequiredWithoutTicketsNestedInput
@@ -13345,7 +13339,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     sessionId?: IntFieldUpdateOperationsInput | number
     clienteId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
@@ -13386,14 +13380,14 @@ export namespace Prisma {
   }
 
   export type EventCreateManyOrganizadorInput = {
-    id?: number
+    id?: string
+    externalId?: string | null
     createdAt?: Date | string
     titulo: string
     descricao?: string | null
     imagem?: string | null
     tipo: $Enums.EventType
     sourceApi: $Enums.SourceApi
-    externalId: string
     status?: $Enums.EventStatus
   }
 
@@ -13410,7 +13404,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     sessionId: number
     orderId: number
   }
@@ -13422,39 +13416,40 @@ export namespace Prisma {
   }
 
   export type EventUpdateWithoutOrganizadorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     titulo?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     imagem?: NullableStringFieldUpdateOperationsInput | string | null
     tipo?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
     sourceApi?: EnumSourceApiFieldUpdateOperationsInput | $Enums.SourceApi
-    externalId?: StringFieldUpdateOperationsInput | string
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     sessions?: SessionUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateWithoutOrganizadorInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     titulo?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     imagem?: NullableStringFieldUpdateOperationsInput | string | null
     tipo?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
     sourceApi?: EnumSourceApiFieldUpdateOperationsInput | $Enums.SourceApi
-    externalId?: StringFieldUpdateOperationsInput | string
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     sessions?: SessionUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateManyWithoutOrganizadorInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     titulo?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     imagem?: NullableStringFieldUpdateOperationsInput | string | null
     tipo?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
     sourceApi?: EnumSourceApiFieldUpdateOperationsInput | $Enums.SourceApi
-    externalId?: StringFieldUpdateOperationsInput | string
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
   }
 
@@ -13485,7 +13480,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     session?: SessionUpdateOneRequiredWithoutTicketsNestedInput
     order?: OrderUpdateOneRequiredWithoutTicketsNestedInput
     checkin?: CheckInUpdateOneWithoutTicketNestedInput
@@ -13497,7 +13492,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     sessionId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
     checkin?: CheckInUncheckedUpdateOneWithoutTicketNestedInput
@@ -13509,7 +13504,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     sessionId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
   }
@@ -13568,7 +13563,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     clienteId: number
     orderId: number
   }
@@ -13578,7 +13573,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     cliente?: UserUpdateOneRequiredWithoutTicketsNestedInput
     order?: OrderUpdateOneRequiredWithoutTicketsNestedInput
     checkin?: CheckInUpdateOneWithoutTicketNestedInput
@@ -13590,7 +13585,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     clienteId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
     checkin?: CheckInUncheckedUpdateOneWithoutTicketNestedInput
@@ -13602,7 +13597,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     clienteId?: IntFieldUpdateOperationsInput | number
     orderId?: IntFieldUpdateOperationsInput | number
   }
@@ -13613,7 +13608,7 @@ export namespace Prisma {
     assento: string
     status?: $Enums.TicketStatus
     qrCode: string
-    shareToken?: string | null
+    shareToken: string
     sessionId: number
     clienteId: number
   }
@@ -13623,7 +13618,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     session?: SessionUpdateOneRequiredWithoutTicketsNestedInput
     cliente?: UserUpdateOneRequiredWithoutTicketsNestedInput
     checkin?: CheckInUpdateOneWithoutTicketNestedInput
@@ -13635,7 +13630,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     sessionId?: IntFieldUpdateOperationsInput | number
     clienteId?: IntFieldUpdateOperationsInput | number
     checkin?: CheckInUncheckedUpdateOneWithoutTicketNestedInput
@@ -13647,7 +13642,7 @@ export namespace Prisma {
     assento?: StringFieldUpdateOperationsInput | string
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     qrCode?: StringFieldUpdateOperationsInput | string
-    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: StringFieldUpdateOperationsInput | string
     sessionId?: IntFieldUpdateOperationsInput | number
     clienteId?: IntFieldUpdateOperationsInput | number
   }
