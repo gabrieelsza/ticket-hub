@@ -7,10 +7,9 @@ const eventRouter = Router();
 
 // CLIENTE
 eventRouter.get("/", eventController.listarPublicados);
-eventRouter.get("/search", authMiddleware, roleMiddleware("CLIENTE"), eventController.buscarNaApiExterna);
 
 // ORGANIZADOR
-eventRouter.get("/search", authMiddleware, roleMiddleware("ORGANIZADOR"), eventController.buscarNaApiExterna);
+eventRouter.get("/search", authMiddleware, roleMiddleware("ORGANIZADOR", "CLIENTEG"), eventController.buscarNaApiExterna);
 eventRouter.get("/meus", authMiddleware, roleMiddleware("ORGANIZADOR"), eventController.listarMeus);
 eventRouter.post("/", authMiddleware, roleMiddleware("ORGANIZADOR"), eventController.importar);
 eventRouter.patch("/:id/publish", authMiddleware, roleMiddleware("ORGANIZADOR"), eventController.publicar);

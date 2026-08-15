@@ -46,6 +46,7 @@ class EventService {
     });
   }
 
+
   async publicar({ id, organizadorId }) {
     const evento = await prisma.event.findUnique({
       where: { id: String(id) },
